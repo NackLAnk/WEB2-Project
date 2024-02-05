@@ -1,0 +1,22 @@
+.header__line {
+    border-top: 1px solid #DDDDDD;
+    max-width: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    opacity: 0;
+}
+
+.line {
+    border-top: 1px solid #DDDDDD;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.line-menu {
+    border-top: 1px solid #635d5d;
+    max-width: 100%;
+    width: 100%;
+    z-index: 99;
+    opacity: 1;
+}

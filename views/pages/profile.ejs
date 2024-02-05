@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- links -->
+
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://fonts.cdnfonts.com/css/omnes-2" rel="stylesheet">
+
+    <!-- scripts -->
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://kit.fontawesome.com/c85c87a3ad.js" crossorigin="anonymous"></script>
+
+    <title>profile</title>
+</head>
+
+<body>
+    <header>
+        <div id="navbar-bg" class="profile__container">
+            <ul id="navbar" class="navbar">
+                <div class="navbar__brand">
+                    <div>
+                        <a href="#">
+                            <img src="/images/logo/logo-pizza__delivery.png" width="50px" height="50px" alt="">
+                        </a>
+                    </div>
+                    <div>
+                        <div class="navbar__brand__title text-bold">
+                            <span id="navbar-logo-text">
+                                СУШИ & ПИЦЦА ZENZA
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+            <div class="navbar__account">
+                <span id="navbar-profile">
+                    <%= userName %>
+                        <%= userLastName %>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <article class="profile__container--content">
+        <section class="profile--top">
+            <h1 class="text__46--profile">Profile</h1>
+        </section>
+    </article>
+
+    <br>
+    <a href="/logout">Logout</a>
+    <a href="home">return</a>
+</body>
+
+</html>

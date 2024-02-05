@@ -1,0 +1,166 @@
+@import url('https://fonts.cdnfonts.com/css/omnes-2');
+
+@import url(/styles/navbar/navbar.css);
+@import url(/styles/lines/lines.css);
+@import url(/styles/images/images.css);
+@import url(/styles/article/article_menu.css);
+@import url(/styles/font-awesome/all.css);
+@import url(/styles/load/load.css);
+@import url(/styles/footer/footer.css);
+@import url(/styles/profile/profile.css);
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #009DE0;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: red;
+}
+
+@font-face {
+    font-family: 'SFProText';
+    src: url('https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;700&display=swap');
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+
+a {
+    text-decoration: none;
+    color: #000 !important;
+}
+
+.text {
+    color: #999999;
+}
+
+.text-bold {
+    font-family: 'SFProText', sans-serif;
+    font-weight: 600;
+}
+
+.text__46--profile {
+    font-family: 'Omnes', sans-serif;
+    font-size: 46px;
+    font-weight: 700;
+}   
+
+.text-color__white {
+    color: white;
+}
+
+.text--attention {
+    color: rgb(244, 96, 96);
+}
+
+.container {
+    position: absolute;
+    width: 100%;
+    height: 4.6em;
+
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 100;
+    transition: all 0.2s ease-out;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+/* container under header */
+
+.container__article-top {
+    max-width: 100%;
+    padding: 24px 30px 24px 50px;
+}
+
+#container__article-menu {
+    width: calc(100% - 80px);
+    max-width: auto;
+    background-color: white;
+}
+
+.container__article-menu__padding {
+    padding: 12px 0px 12px 0px;
+}
+
+#container__article-menu:not(.sticky) {
+    position: absolute;
+    z-index: 90;
+}
+
+/* footer container */
+
+.footer__container {
+    max-width: 1300px;
+    margin: auto;
+}
+
+/* profile Container */
+
+.profile__container {
+    width: 1170px;
+    height: 4.6em;
+
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 100;
+    transition: all 0.2s ease-out;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.profile__container--content {
+    width: 1170px;
+    margin-top: 40px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* sticky scroll */
+
+.sticky {
+    position: fixed;
+    top: 74px;
+    z-index: 95;
+}
+
+.sticky--navbar {
+    position: fixed;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+/* margin left/right */
+
+.ms-l {
+    margin-left: auto;
+}
+
+.ms-r {
+    margin-right: auto;
+}
+
+/* padding 1-5 */
+
+.pl-5 {
+    padding-left: 5px;
+}
+
+/*  */

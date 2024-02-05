@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Links -->
+
+    <link rel="stylesheet" href="/styles/validation/validation__form.css">
+
+    <!-- scripts-->
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <!-- Coding By CodingNepal - codingnepalweb.com -->
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Responsive Login and Signup Form </title>
+        <!-- CSS -->
+
+        <!-- Boxicons CSS -->
+        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+    </head>
+
+    <body>
+        <section class="container forms">
+            <div class="form login">
+                <div class="form-content">
+                    <header>Login</header>
+                    <form id="login">
+                        <div class="field input-field">
+                            <input type="email" placeholder="Email" id="email" class="input">
+                            <div id="email-error" style="color: red;"></div>
+                        </div>
+                        <div class="field input-field">
+                            <input type="password" placeholder="Password" id="password" class="password">
+                            <i class='bx bx-hide eye-icon'></i>
+                            <div id="password-error" style="color: red;"></div>
+                        </div>
+                        <div class="form-link">
+                            <a href="#" class="forgot-pass">Forgot password?</a>
+                        </div>
+                        <div id="error-message" style="color: red;"></div>
+                        <div class="field button-field">
+                            <input type="submit" value="Submit Form" />
+                        </div>
+                    </form>
+                    <div class="form-link">
+                        <span>Don't have an account? <a href="/signUp" class="link login-link">signup</a></span>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="media-options">
+                    <a href="/home" class="field google">
+                        <span style="color: black;">return</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- load -->
+
+        <div id="loading-wrapper" class="loading-wrapper"></div>
+        <script>
+            $(window).on("load", function () {
+                setTimeout(function () {
+                    $(".loading-wrapper").fadeOut("slow");
+                }, 1200)
+            });
+
+            const form = document.getElementById('login')
+            const emailErrorElement = document.getElementById('email-error');
+            const passwordErrorElement = document.getElementById('password-error');
+            const errorMessageElement = document.getElementById('error-message');
+            form.addEventListener('submit', login)
+
+            async function login(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                try {
+                    const result = await fetch('/api/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email,
+                            password
+                        })
+                    }).then((res) => res.json());
+
+                    if (result.status === 'ok') {
+                        localStorage.setItem('token', result.data);
+                        localStorage.setItem('userLoggedIn', true);
+                        window.location.href = "/home";
+                    } else {
+                        emailErrorElement.innerHTML = '';
+                        passwordErrorElement.innerHTML = '';
+                        errorMessageElement.innerHTML = '';
+
+                        switch (result.error) {
+                            case 'Invalid email':
+                                emailErrorElement.innerHTML = 'Invalid email';
+                                break;
+                            case 'Invalid password':
+                                passwordErrorElement.innerHTML = 'Invalid password';
+                                break;
+                            default:
+                                errorMessageElement.innerHTML = 'An error occurred while logging in';
+                                break;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while logging in');
+                }
+            }
+
+        </script>
+
+        <!-- JavaScript -->
+        <script src="/styles/validation/validation.js"></script>
+    </body>
+
+    </html>
+</body>
+
+</html>

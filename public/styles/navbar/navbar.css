@@ -1,0 +1,105 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+/* navbar brand (baseline of the site) */
+
+.navbar__brand {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    text-decoration: none;
+    list-style: none;
+}
+
+.navbar__brand__title {
+    padding: 0 0 0 12px;
+    list-style: none;
+
+    font-size: 18px;
+}
+
+.navbar__brand__subtitle {
+    padding: 4px 0 0 12px;
+    list-style: none;
+
+    font-size: 14px;
+}
+
+.navbar__account {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    padding: 0 40px 0 0;
+}
+
+.navbar__account-login {
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar__account-sign-up {
+    padding: 12px 27px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    background-color: #009DE0;
+    color: white;
+}
+
+.navbar__account-sign-up:hover {
+    background-color: #00b3ff;
+    transition: all .1s ease-in-out;
+}
+
+/* other */
+
+
+.navbar__item {
+    padding: 28.22px 0;
+}
+
+.navbar__item__padding {
+    padding: 28.22px 16px 28.22px 0;
+}
+
+.navbar__text__active {
+    color: #D5212C !important;
+}
+
+/* text on image */
+
+.top__image-header {
+    width: 100%;
+    height: 35vh;
+    object-fit: cover;
+    filter: brightness(0.75);
+    z-index: 0;
+}
+
+.image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-text {
+    position: absolute;
+    bottom: 2%;
+    left: 3%;
+    transform: translate(0, -50%);
+    z-index: 1;
+}
+
+.image-text__size {
+    font-size: 40px;
+}
+
+.image-text__size-under {
+    font-size: 18px;
+}

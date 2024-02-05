@@ -1,0 +1,14 @@
+.loading-wrapper {
+    background-color: #D3EAFD;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    position: fixed;
+    background-image: url("/images/gif/downloading.gif");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 35%;
+    z-index: 101;
+}

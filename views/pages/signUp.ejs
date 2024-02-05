@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Links -->
+
+    <link rel="stylesheet" href="/styles/validation/validation__form.css">
+
+    <!-- scripts-->
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <section class="container forms">
+        <div class="form signup">
+            <div class="form-content">
+                <header>Signup</header>
+                <form id="reg-form">
+                    <div style="display: flex;">
+                        <div class="field input-field" style="padding: 0 8px 0 0;">
+                            <input type="text" placeholder="First Name" id="first-name" class="input">
+                            <div id="error-first-name" style="color: red;"></div>
+                        </div>
+                        <div class="field input-field">
+                            <input type="text" placeholder="Last Name" id="last-name" class="input">
+                            <div id="error-last-name" style="color: red;"></div>
+                        </div>
+                    </div>
+                    <div class="field input-field">
+                        <input type="email" placeholder="Email" id="email" class="input">
+                        <div id="email-error" style="color: red;"></div>
+                    </div>
+                    <div class="field input-field">
+                        <input type="password" placeholder="Password" id="password" class="password">
+                        <div id="password-error" style="color: red;"></div>
+                        <i class='bx bx-hide eye-icon'></i>
+                    </div>
+                    <div class="form-link">
+                        <a href="#" class="forgot-pass">Forgot password?</a>
+                    </div>
+                    <div id="error-message" style="color: red;"></div>
+                    <div class="field button-field">
+                        <input type="submit" value="Submit Form" />
+                    </div>
+                </form>
+                <div class="form-link">
+                    <span>Already have an account? <a href="/login" class="link login-link">Login</a></span>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="media-options">
+                <a href="/home" class="field google">
+                    <span style="color: black;">return</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="loading-wrapper" class="loading-wrapper"></div>
+    <script>
+        $(window).on("load", function () {
+            setTimeout(function () {
+                $(".loading-wrapper").fadeOut("slow");
+            }, 1200)
+        });
+
+        const form = document.getElementById('reg-form')
+        const fNameErrorElement = document.getElementById('error-first-name');
+        const lNameErrorElement = document.getElementById('error-last-name');
+        const emailErrorElement = document.getElementById('email-error');
+        const passwordErrorElement = document.getElementById('password-error');
+        const errorMessageElement = document.getElementById('error-message');
+        form.addEventListener('submit', registerUser)
+
+        async function registerUser(event) {
+            event.preventDefault()
+            const first_name = document.getElementById('first-name').value
+            const last_name = document.getElementById('last-name').value
+            const email = document.getElementById('email').value
+            const password = document.getElementById('password').value
+
+            const result = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    first_name,
+                    last_name,
+                    email,
+                    password
+                })
+            }).then((res) => res.json())
+
+            if (result.status === 'ok') {
+                // everythign went fine
+                localStorage.setItem('userLoggedIn', true);
+                window.location.href = "/home";
+            } else {
+                fNameErrorElement.innerHTML = '';
+                lNameErrorElement.innerHTML = '';
+                emailErrorElement.innerHTML = '';
+                passwordErrorElement.innerHTML = '';
+                errorMessageElement.innerHTML = '';
+
+                switch (result.error) {
+                    case 'Invalid first name':
+                        fNameErrorElement.innerHTML = 'Invalid first name';
+                        break;
+                    case 'Invalid last name':
+                        lNameErrorElement.innerHTML = 'Invalid last name';
+                        break;
+                    case 'Invalid email':
+                        emailErrorElement.innerHTML = 'Invalid email';
+                        break;
+                    case 'Invalid password':
+                        passwordErrorElement.innerHTML = 'Invalid password';
+                        break;
+                    default:
+                        errorMessageElement.innerHTML = 'An error occurred while logging in';
+                        break;
+                }
+            }
+        }
+    </script>
+
+    <!-- scripts -->
+    <script src="/styles/validation/validation.js"></script>
+
+</body>
+
+</html>
