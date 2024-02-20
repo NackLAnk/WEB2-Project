@@ -58,14 +58,14 @@ const sessionSecret = crypto.randomBytes(64).toString('hex');
 fs.writeFileSync('.env', updatedEnvData);
 
 // mongoose connect
-mongoose.connect('mongodb+srv://nacklank:Gasek123@atlascluster.8lfm3uv.mongodb.net/dbweb?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log('MongoDB connected successfully');
-}).catch((error) => {
-  console.error('MongoDB connection error:', error);
-});
+// mongoose.connect('mongodb+srv://nacklank:Gasek123@atlascluster.8lfm3uv.mongodb.net/dbweb?retryWrites=true&w=majority', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// }).then(() => {
+//   console.log('MongoDB connected successfully');
+// }).catch((error) => {
+//   console.error('MongoDB connection error:', error);
+// });
 
 // app variable
 const app = express();
