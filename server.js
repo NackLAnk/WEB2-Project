@@ -96,9 +96,9 @@ app.use(session({
 
 
 // redirect to --> /home
-app.get("/", (req, res) => {
-  res.redirect("/home");
-});
+// app.get("/", (req, res) => {
+//   res.redirect("/home");
+// });
 
 // функций, проверка, время, проверки на авторизацию и т.д.
 
@@ -121,7 +121,7 @@ function formatNumberWithSpaces(number) {
 // проверяет на наличие автаризаций пользователя, чтобы нельзя было попасть в /login /signin
 function checkAuth(req, res, next) {
   if (req.session.userLoggedIn) {
-    return res.redirect('/home');
+    return res.redirect('/');
   }
   next();
 }
@@ -150,7 +150,7 @@ function determineTime(req, res, next) {
 }
 
 // это главная страница, по сути "/", но мне хочется чтобы было /home )))
-app.get('/home', determineTime, function (req, res) {
+app.get('/', determineTime, function (req, res) {
   const { userLoggedIn, email } = req.session;
   Menu.find()
     .sort({ createdAt: -1 })
@@ -277,7 +277,7 @@ app.delete('/blog/:id', (req, res) => {
 
 // меню прототип
 
-app.get('/home/add-menu', determineTime, (req, res) => {
+app.get('/add-menu', determineTime, (req, res) => {
   const { email, userLoggedIn } = req.session;
   User.findOne({ email })
     .then((user) => {
@@ -306,9 +306,9 @@ app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.error('Error destroying session:', err);
-      return res.redirect('/home');
+      return res.redirect('/');
     }
-    res.redirect('/home');
+    res.redirect('/');
   });
 });
 
