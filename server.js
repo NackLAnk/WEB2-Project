@@ -40,22 +40,23 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const envData = fs.readFileSync('.env', 'utf8');
 const lines = envData.split('\n');
-const JWT_SECRET = crypto.randomBytes(64).toString('hex');
+// const JWT_SECRET = crypto.randomBytes(64).toString('hex');
+const JWT_SECRET =  'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk';
 
-let updatedEnvData = lines
-  .map(line => {
-    if (line.startsWith('JWT_SECRET=')) {
-      return `JWT_SECRET=${JWT_SECRET}`;
-    }
-    return line;
-  })
-  .join('\n');
+// let updatedEnvData = lines
+//   .map(line => {
+//     if (line.startsWith('JWT_SECRET=')) {
+//       return `JWT_SECRET=${JWT_SECRET}`;
+//     }
+//     return line;
+//   })
+//   .join('\n');
 
 // session secret
 
 const sessionSecret = crypto.randomBytes(64).toString('hex');
 
-fs.writeFileSync('.env', updatedEnvData);
+// fs.writeFileSync('.env', updatedEnvData);
 
 // mongoose connect
 mongoose.connect('mongodb+srv://nacklank:Gasek123@atlascluster.8lfm3uv.mongodb.net/dbweb?retryWrites=true&w=majority', {
