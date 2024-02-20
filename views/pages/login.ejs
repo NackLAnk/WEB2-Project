@@ -105,7 +105,7 @@
                     if (result.status === 'ok') {
                         localStorage.setItem('token', result.data);
                         localStorage.setItem('userLoggedIn', true);
-                        window.location.href = "/home";
+                        window.location.href = "/";
                     } else {
                         emailErrorElement.innerHTML = '';
                         passwordErrorElement.innerHTML = '';
