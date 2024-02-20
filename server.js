@@ -58,7 +58,7 @@ const sessionSecret = crypto.randomBytes(64).toString('hex');
 fs.writeFileSync('.env', updatedEnvData);
 
 // mongoose connect
-mongoose.connect('mongodb://localhost:27017/login-app-db', {
+mongoose.connect('mongodb+srv://nacklank:Gasek123@cluster0.lit5mmc.mongodb.net/dbweb?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
