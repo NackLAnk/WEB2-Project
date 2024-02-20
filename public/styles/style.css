@@ -1,6 +1,7 @@
 @import url('https://fonts.cdnfonts.com/css/omnes-2');
 
 @import url(/styles/navbar/navbar.css);
+@import url(/styles/navbar/dropdown.css);
 @import url(/styles/lines/lines.css);
 @import url(/styles/images/images.css);
 @import url(/styles/article/article_menu.css);
@@ -8,6 +9,7 @@
 @import url(/styles/load/load.css);
 @import url(/styles/footer/footer.css);
 @import url(/styles/profile/profile.css);
+@import url(/styles/blog/blog.css);
 
 ::-webkit-scrollbar {
     width: 6px;
@@ -26,13 +28,34 @@
     background-color: red;
 }
 
+.cancelToSelect {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 @font-face {
     font-family: 'SFProText';
     src: url('https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;700&display=swap');
 }
 
+@font-face {
+    font-family: 'Valio Omnes Semibold';
+    src: url('ValioOmnes-Semibold.eot');
+    src: url('ValioOmnes-Semibold.eot?#iefix') format('embedded-opentype'),
+    url('ValioOmnes-Semibold.woff') format('woff'),
+    url('ValioOmnes-Semibold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+
 * {
     margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -46,20 +69,28 @@ a {
     color: #000 !important;
 }
 
+.invisible {
+    display: none;
+}
+
 .text {
     color: #999999;
 }
 
 .text-bold {
-    font-family: 'SFProText', sans-serif;
+    font-family: 'Valio Omnes Semibold';
     font-weight: 600;
 }
 
 .text__46--profile {
-    font-family: 'Omnes', sans-serif;
+    font-family: 'Valio Omnes Semibold';
     font-size: 46px;
-    font-weight: 700;
-}   
+}
+
+.text__46--order {
+    font-family: 'Valio Omnes Semibold';
+    font-size: 46px;
+}
 
 .text-color__white {
     color: white;
@@ -87,6 +118,7 @@ a {
 .container__article-top {
     max-width: 100%;
     padding: 24px 30px 24px 50px;
+    border-bottom: 1px solid #DDDDDD;
 }
 
 #container__article-menu {
@@ -125,13 +157,30 @@ a {
     white-space: nowrap;
     margin-right: auto;
     margin-left: auto;
+    justify-content: space-between;
 }
 
 .profile__container--content {
-    width: 1170px;
-    margin-top: 40px;
+    width: 1150px;
+    margin-top: 60px;
     margin-right: auto;
     margin-left: auto;
+}
+
+/* blog container */
+
+.blog__container {
+    padding: 0;
+    display: flex;
+    width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 500px;
+    max-height: 2000px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    flex-direction: column;
+
 }
 
 /* sticky scroll */
@@ -164,3 +213,41 @@ a {
 }
 
 /*  */
+
+.menu--form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu--form__1 {
+    position: relative;
+    border: 3px solid #DDDDDD;
+    padding: 12px;
+
+    border-radius: 8px;
+    min-height: 8.75rem;
+    width: 600px;
+}
+
+.menu--form__2 {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu--form__3 {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+}
+
+.menu--form input {
+    color: #000;
+    outline: none;
+    border: 1px solid #009DE0;
+    border-radius: 8px;
+    padding: 4px;
+    background-color: #fff;
+}

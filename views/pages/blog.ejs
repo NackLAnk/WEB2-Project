@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- links -->
+
+    <link rel="stylesheet" href="styles/style.css">
+
+    <!-- scripts -->
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://kit.fontawesome.com/c85c87a3ad.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+
+    <title>Blog</title>
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+        <%- include('./partials/article__panel.ejs') %>
+            <section>
+                <ul class="blog__container">
+                    <% if (posts.length> 0) { %>
+                        <% posts.forEach(({ id, title, createdAt, text, author, post_image })=> { %>
+                            <li class="block__post">
+                                <a href="/blog/<%= id %>">
+                                    <div class="blog__post">
+                                        <div class="blog__post--main">
+                                            <h2>
+                                                    <%= title %>
+                                            </h2>
+                                            <div class="blog__post--text--preview span-container">
+                                                <% let sentences=text.split(/[.!?]/); let
+                                                    truncatedText=sentences.slice(0, 3).join('.'); %>
+                                                    <%= truncatedText %>
+                                            </div>
+
+                                            <div class="blog__about">
+                                                <span>
+                                                    by <span class="block__post--author">
+                                                        <%= author %>
+                                                    </span> - <span>
+                                                        <% const daysOfWeek=['Воскресенье', 'Понедельник' , 'Вторник'
+                                                            , 'Среда' , 'Четверг' , 'Пятница' , 'Суббота' ]; const
+                                                            dayOfWeekIndex=createdAt.getDay(); const
+                                                            dayOfWeek=daysOfWeek[dayOfWeekIndex]; %>
+
+                                                            <%= `${dayOfWeek},
+                                                                ${createdAt.getDate()}/${createdAt.getMonth() +
+                                                                1}/${createdAt.getFullYear()}
+                                                                ${createdAt.toLocaleTimeString()}` %>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="blog__post--image">
+                                            <img src="<%= post_image %>" alt="post_image">
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <% }); %>
+                                <% } else { %>
+                                    <div class="empty__container">
+                                        <li class="block__post--empty ">
+                                            <p>Пока нет никаких постов в нашем блоге.</p>
+                                        </li>
+                                    </div>
+                                    <% } %>
+                                        <% if (userLoggedIn && user.role==="admin" ) { %>
+                                            <form id="post-form" class="form">
+                                                <div class="form-info">
+                                                    <label>
+                                                        <input type="hidden" name="author" id="author-field"
+                                                            value="<%= user.first_name || 'null' %>">
+                                                    </label>
+                                                </div>
+                                                <div class="form--text">
+                                                    <input type="title" name="title" placeholder="Title">
+                                                    <button id="insert-bold" type="button">Жирный</button>
+                                                    <button id="insert-italic" type="button">Курсив</button>
+                                                    <button id="insert-link" type="button">Ссылка</button>
+                                                    <label for="file-upload" class="custom-file-upload">Выбeрите
+                                                        файл</label>
+                                                    <input id="file-upload" name="post_image" type="file"
+                                                        accept="image/*">
+                                                </div>
+                                                <div class="form--title">
+                                                    <textarea id="styled-textarea" name="text" id="styled-textarea"
+                                                        placeholder="Text"></textarea>
+                                                    <div class="form-button">
+                                                        <input type="submit" value="Отправить">
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                            <% } %>
+                </ul>
+            </section>
+
+            <%- include('./partials/footer.ejs') %>
+                <!-- <div id="loading-wrapper" class="loading-wrapper"></div>
+                <script>
+                    $(window).on("load", function () {
+                        setTimeout(function () {
+                            $(".loading-wrapper").fadeOut("slow");
+                        }, 1200)
+                    });
+                </script> -->
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var spanContainers = document.querySelectorAll('.span-container');
+                
+                        spanContainers.forEach(function(spanContainer) {
+                            var textContent = spanContainer.innerHTML.trim(); 
+                
+                            var converter = new showdown.Converter();
+                            var htmlContent = converter.makeHtml(textContent);
+                
+                            spanContainer.innerHTML = htmlContent;
+                        });
+                    });
+                </script>
+                
+
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var textarea = document.getElementById('styled-textarea');
+                        var boldButton = document.getElementById('insert-bold');
+                        var italicButton = document.getElementById('insert-italic');
+                        var linkButton = document.getElementById('insert-link');
+
+                        function insertTextAtCursor(textarea, text) {
+                            var startPos = textarea.selectionStart;
+                            var endPos = textarea.selectionEnd;
+                            var scrollTop = textarea.scrollTop;
+                            textarea.value = textarea.value.substring(0, startPos) + text + textarea.value.substring(endPos, textarea.value.length);
+                            textarea.focus();
+                            textarea.selectionStart = startPos + text.length;
+                            textarea.selectionEnd = startPos + text.length;
+                            textarea.scrollTop = scrollTop;
+                            updateMarkdownPreview();
+                        }
+
+                        boldButton.addEventListener('click', function () {
+                            insertTextAtCursor(textarea, '**Жирный текст**');
+                        });
+
+                        italicButton.addEventListener('click', function () {
+                            insertTextAtCursor(textarea, '*Курсивный текст*');
+                        });
+
+                        linkButton.addEventListener('click', function () {
+                            insertTextAtCursor(textarea, '[Текст ссылки](ссылка)');
+                        });
+                    });
+                </script>
+
+                <script>
+                    document.querySelectorAll('#delete--btn').forEach(button => {
+                        button.addEventListener('click', async () => {
+                            const postId = button.getAttribute('data-id');
+                            try {
+                                const response = await fetch(`/blog/${postId}`, {
+                                    method: 'DELETE'
+                                });
+                                if (response.ok) {
+                                    // Если статья успешно удалена, должна быть перезагрузка xd
+                                    location.reload();
+                                } else {
+                                    console.error('Failed to delete article');
+                                }
+                            } catch (error) {
+                                console.error('Error deleting article:', error);
+                            }
+                        });
+                    });
+                </script>
+                <script>
+                    var textarea = document.getElementById('styled-textarea');
+
+                    textarea.addEventListener('input', function () {
+                        this.style.height = 'auto';
+                        this.style.height = (this.scrollHeight) + 'px';
+                    });
+
+                    $(document).ready(function () {
+                        $('#post-form').submit(function (e) {
+                            e.preventDefault(); // Отменяем стандартное поведение формы
+
+                            // Создаем объект FormData
+                            var formData = new FormData(this);
+
+                            // Отправляем POST-запрос на сервер
+                            $.ajax({
+                                type: 'POST',
+                                url: '/add-post',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function (response) {
+                                    location.reload(); // Перезагрузка страницы
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('Error:', error);
+                                    // Обработка ошибок при отправке формы
+                                }
+                            });
+                        });
+                    });
+
+
+                </script>
+
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="/styles/navbar/navbar.js"></script>
+                <script src="/styles/font-awesome/all.js"></script>
+</body>
+
+</html>

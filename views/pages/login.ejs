@@ -57,7 +57,7 @@
                         </div>
                     </form>
                     <div class="form-link">
-                        <span>Don't have an account? <a href="/signUp" class="link login-link">signup</a></span>
+                        <span>Don't have an account? <a href="/signUp">signup</a></span>
                     </div>
                 </div>
                 <div class="line"></div>
@@ -71,13 +71,13 @@
 
         <!-- load -->
 
-        <div id="loading-wrapper" class="loading-wrapper"></div>
+        <!-- <div id="loading-wrapper" class="loading-wrapper"></div> -->
         <script>
-            $(window).on("load", function () {
-                setTimeout(function () {
-                    $(".loading-wrapper").fadeOut("slow");
-                }, 1200)
-            });
+            // $(window).on("load", function () {
+            //     setTimeout(function () {
+            //         $(".loading-wrapper").fadeOut("slow");
+            //     }, 1200)
+            // });
 
             const form = document.getElementById('login')
             const emailErrorElement = document.getElementById('email-error');

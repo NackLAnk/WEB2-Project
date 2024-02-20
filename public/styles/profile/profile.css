@@ -1,3 +1,129 @@
 .profile--top {
     padding: 0 40px;
 }
+
+.profile--settings {
+    margin: 90px;
+    padding: 0 40px;
+}
+
+.settings {
+    display: flex;
+    align-items: center;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3;
+}
+
+.profile__change--button {
+    padding: 1em 0;
+}
+
+.profile__image {
+    width: 128px;
+    height: 128px;
+    border: 2px solid #dddddd;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.profile__email {
+    padding: 20px 0 0;
+    font-family: 'Valio Omnes Semibold';
+}
+
+.profile__number {
+    padding: 20px 0 0;
+    font-family: 'Valio Omnes Semibold';
+}
+
+.profile__information {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 40px;
+}
+
+.profile__username {
+    font-family: 'Valio Omnes Semibold';
+    font-size: 38px;
+    display: flex;
+}
+
+.profile__phone {
+    font-family: 'Valio Omnes Semibold';
+    color: #7D7D80;
+    border: 1px;
+    background-color: #fff;
+    outline: none;
+    font-size: 24px;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.profile__name input {
+    font-family: 'Valio Omnes Semibold';
+    color: #7D7D80;
+    border: 1px;
+    background-color: #fff;
+    outline: none;
+    font-size: 32px;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.profile__last-name input {
+    font-family: 'Valio Omnes Semibold';
+    color: #7D7D80;
+    border: 1px;
+    background-color: #fff;
+    outline: none;
+    font-size: 32px;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.profile__name {
+    font-family: 'Valio Omnes Semibold';
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.profile__last-name {
+    font-family: 'Valio Omnes Semibold';
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.email {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* orders */
+
+.profile__empty--orders {   
+    font-family: 'Valio Omnes Semibold';
+}
+
+.profile--orderHistory {
+    width: 1150px;
+    margin-top: 60px;
+    margin-right: auto;
+    margin-left: auto;
+}

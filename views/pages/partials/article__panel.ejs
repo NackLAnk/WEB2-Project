@@ -1,0 +1,35 @@
+<section>
+    <div class="container__article-top">
+        <ul class="list__unstyled article__top-information">
+            <li class="article__top-text__padding">
+                <i class="fa-solid fa-clock"></i>
+                <span class="pl-5">
+                    <% if (isOpen) { %>
+                        Открыто до 23:00
+                        <% } else { %>
+                            <span class="text--attention">
+                                Работаем с 8:00 до 23:00
+                            </span>
+                            <% } %>
+                </span>
+            </li>
+            <li class="article__top-text__padding">
+                <i class="fa fa-heart" aria-hidden="true"></i> <span class="pl-5"> 9,0 </span>
+            </li>
+            <li class="article__top-text__padding">
+                <i class="fa fa-info-circle" aria-hidden="true"></i> <span class="pl-5"> Подробнее </span>
+            </li>
+            <li style="margin-left: auto; padding-right: 10px;">
+                <% if (userLoggedIn) { %>
+                    <% if (currentUrl==='/home' && user.role === "admin") { %>
+                        <a href="home/add-menu" class="navbar__account-sign-up" style=" width: 150px;">
+                            <span class="text-color__white" style="text-align: center; padding-left: 10px; display: flex; align-items: center;">
+                                добавить меню <i class="fa-sharp fa-solid fa-plus" style="padding-left: 5px;"></i>
+                            </span>
+                        </a>
+                        <% } %>
+                            <% } %>
+            </li>
+        </ul>
+    </div>
+</section>

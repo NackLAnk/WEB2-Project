@@ -1,16 +1,26 @@
-function myFunction() {
-    var input, filter, ul, li, a, i;
-    input = document.getElementById("mySearch");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("menu__gunkan");
-    li = ul.getElementsByTagName("div");
+document.getElementById('searchInput').addEventListener('input', function() {
+    searchMenu();
+});
 
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
+function searchMenu() {
+    var searchText = document.getElementById('searchInput').value.toLowerCase();
+    var menuCards = document.querySelectorAll('.menu-card');
+
+    menuCards.forEach(function(card) {
+        var title = card.querySelector('.menu-card__information-title').innerText.toLowerCase();
+        var ingredients = card.querySelector('.menu-card__information-ingredients').innerText.toLowerCase();
+        var departmentId = card.closest('.department').id.toLowerCase(); // Получаем id отдела
+
+        if (title.includes(searchText) || ingredients.includes(searchText) || departmentId.includes(searchText)) {
+            card.style.display = 'flex';
+            card.closest('.department').style.display = 'block'; // Показываем отдел, если есть совпадение
         } else {
-            li[i].style.display = "none";
+            card.style.display = 'none';
+            // Проверяем, остались ли видимые карточки в отделе, и скрываем отдел, если нет
+            var departmentCards = card.closest('.department').querySelectorAll('.menu-card[style="display: flex;"]');
+            if (departmentCards.length === 0) {
+                card.closest('.department').style.display = 'none';
+            }
         }
-    }
+    });
 }

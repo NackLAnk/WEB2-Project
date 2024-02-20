@@ -1,0 +1,127 @@
+
+.blog__post {
+    display: flex;
+    justify-content: space-between;
+}
+
+.blog__post--image img {
+    width: 540px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.blog__about {
+    margin-top: auto;
+}
+
+.block__post {
+    list-style: none;
+    margin: 20px;
+    padding: 20px;
+    min-height: 100px;
+    border-radius: 8px;
+    overflow-wrap: break-word;
+}
+
+.blog__post--main {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.blog__post--text--preview {
+    margin-top: 20px;
+}
+
+.block__post--author {
+    color: rgb(177, 99, 99);
+}
+
+.block__post--info {
+    display: flex;
+    align-items: flex-end;
+    padding-top: 30px;
+}
+
+.empty__container {
+    min-height: 500px; 
+    max-height: 2000px;
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.block__post--empty {
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.block__post--delete {
+    padding-top: 20px;
+    display: flex;
+    justify-content: end;
+}
+
+.block__post--delete--button {
+    border: 0;
+    border-radius: 8px;
+    outline: none;
+    padding: 10px;
+    background-color: red;
+}
+
+/* form */
+
+.form {
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    background-color: #DDDDDD;
+    margin-top: auto;
+}
+
+.form--text {
+    margin: 10px;
+    display: flex;
+}
+
+.form--text>input {
+    height: 25px;
+    border: 0px;
+    border-radius: 8px;
+    background-color: #fff;
+    color: black;
+    outline: none;
+    font-size: 20px;
+    padding: 8px;
+}
+
+.form--title {
+    margin: 10px;
+    display: flex;
+}
+
+.form--title>textarea {
+    margin: 0 5px 0 0;
+    padding: 8px;
+    width: 100%;
+    height: auto;
+    border: 0px;
+    border-radius: 8px;
+    background-color: #fff;
+    color: black;
+    outline: none;
+    font-size: 20px;
+    resize: none;
+} 
+
+.form-button>input{
+    border: 0;
+    border-radius: 8px;
+    background-color: #009DE0;
+    color: #fff;
+    height: 41px;
+    display: flex;
+    align-items: flex-end;
+}

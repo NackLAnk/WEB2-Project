@@ -1,0 +1,72 @@
+<header class="cancelToSelect">
+    <div id="navbar-bg" class="container">
+        <ul id="navbar" class="navbar">
+            <a href="/home" class="navbar__brand">
+                <div>
+                    <div class="navbar__brand__title text-bold">
+                        <span id="navbar-logo-text" class="text-color__white">
+                            ZENZA
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </ul>
+        <div class="navbar__account">
+            <% if (!userLoggedIn) { %>
+                <a href="/login" class="navbar__account-login">
+                    <span id="navbar-login" class="text-color__white">
+                        Войти
+                    </span>
+                </a>
+                <a href="/signUp" class="navbar__account-sign-up">
+                    <span id="navbar-sign-in" class="text-color__white">
+                        Зарегистрироваться
+                    </span>
+                </a>
+                <% } else { %>
+                    <div class="navbar__profile">
+                        <img class="navbar__user--icon" src="<%= user.avatar || '/images/userIcon.png' %>" alt="">
+                        <span id="navbar-profile" class="text-color__white">
+                            <% if (user.first_name && user.last_name) { %>
+                                
+                                    <div class="sec-center cancelToSelect">
+                                        <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
+                                        <label class="for-dropdown" for="dropdown"><%= user.first_name[0].toUpperCase() + user.last_name[0].toUpperCase() %> <i
+                                                class="fas fa-chevron-down uil" style="padding-left: 8px;"></i></label>
+                                        <div class="section-dropdown">
+                                            <a class="dropdown--profile" href="/profile">
+                                                <img class="dropdown--profile__image" src="<%= user.avatar || '/images/userIcon.png' %>" alt="">
+                                                <div class="dropdown--profile__information">
+                                                    <div class="dropdown--profile__title">
+                                                        Профиль
+                                                    </div>
+                                                    <div class="dropdown--profile__username">
+                                                        <%= user.first_name%> <%= user.last_name%>
+                                                    </div>
+                                                </div>
+                                                <i class="fa-solid fa-chevron-right"></i>
+                                            </a>
+                                                <a class="dropdown--section" href="/blog">Блог</a>
+                                                <a class="dropdown--section" href="#">Поддержка</a>
+                                            <div class="line-dropdown"></div>
+                                                <a class="dropdown--section" href="/logout">Выйти</a>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                        </span>
+                    </div>
+
+                    <% } %>
+        </div>
+
+    </div>
+    <% if (currentUrl !=='/profile') { %>
+        <div class="image">
+            <div class="image-text text-bold text-color__white">
+                <span class="image-text__size">Sushi Zenza Astana</span> <br>
+                <span class="image-text__size-under">Лучшие суши в Казахстане<i
+                        class="fa-solid fa-heart pl-5"></i></span>
+            </div>
+        </div>
+        <% } %>
+</header>

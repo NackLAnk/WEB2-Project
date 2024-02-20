@@ -13,6 +13,13 @@
     margin-right: 0px;
 }
 
+.line-dropdown {
+    border-top: 1px solid #DDDDDD;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin: 10px 0;
+}
+
 .line-menu {
     border-top: 1px solid #635d5d;
     max-width: 100%;

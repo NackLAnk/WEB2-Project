@@ -106,15 +106,23 @@ function handleScroll() {
     menuItems.forEach((menuItem) => {
         menuItem.addEventListener('click', function (event) {
             event.preventDefault();
-
+    
             var targetId = this.getAttribute('href').substring(1);
             var targetElement = document.getElementById(targetId);
-
+    
+            var headerHeight = 170; // Размер вашего навигационного меню
+    
             if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest', duration: 800 });
+                var targetOffset = targetElement.offsetTop - headerHeight;
+    
+                window.scrollTo({
+                    top: targetOffset,
+                    behavior: 'smooth'
+                });
             }
         });
     });
+    
 }
 
 window.addEventListener('scroll', handleScroll);

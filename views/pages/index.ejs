@@ -17,427 +17,218 @@
 </head>
 
 <body>
-    <header>
-        <div id="navbar-bg" class="container">
-            <ul id="navbar" class="navbar">
-                <div class="navbar__brand">
-                    <div>
-                        <a href="#">
-                            <img src="/images/logo/logo-pizza__delivery.png" width="50px" height="50px" alt="">
-                        </a>
-                    </div>
-                    <div>
-                        <div class="navbar__brand__title text-bold">
-                            <span id="navbar-logo-text" class="text-color__white">
-                                СУШИ & ПИЦЦА ZENZA
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </ul>
-            <div class="navbar__account">
-                <% if (!userLoggedIn) { %>
-                    <a href="/login" class="navbar__account-login">
-                        <span id="navbar-login" class="text-color__white">
-                            Войти
-                        </span>
-                    </a>
-                    <a href="/signUp" class="navbar__account-sign-up">
-                        <span id="navbar-sign-in" class="text-color__white">
-                            Зарегистрироваться
-                        </span>
-                    </a>
-                    <% } else { %>
-                        <a href="/profile">
-                            <span id="navbar-profile" class="text-color__white">
-                                <%= userName %>
-                                    <%= userLastName %>
-                            </span>
-                        </a>
-                        <% } %>
-            </div>
-        </div>
-        <div class="image">
-            <div class="image-text text-bold text-color__white">
-                <span class="image-text__size">Sushi Zenza Astana</span> <br>
-                <span class="image-text__size-under">Лучшие суши в Казахстане<i
-                        class="fa-solid fa-heart pl-5"></i></span>
-            </div>
-            <img class="top__image-header" src="/images/top/top-image.jpg" alt="">
-        </div>
-    </header>
-    <!-- top image -->
+    <%- include('./partials/header.ejs') %>
+        <!-- top image -->
 
-    <article>
-        <div class="container__article-top">
-            <ul class="list__unstyled article__top-information">
-                <li class="article__top-text__padding">
-                    <i class="fa-solid fa-clock"></i>
-                    <span class="pl-5">
-                        <% if (isOpen) { %>
-                            Открыто до 23:00
-                            <% } else { %>
-                                <span class="text--attention">
-                                    Работаем с 8:00 до 23:00
-                                </span>
-                                <% } %>
-                    </span>
-                </li>
-                <li class="article__top-text__padding">
-                    <i class="fa fa-heart" aria-hidden="true"></i> <span class="pl-5"> 9,0 </span>
-                </li>
-                <li class="article__top-text__padding">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> <span class="pl-5"> Подробнее </span>
-                </li>
-            </ul>
-        </div>
-        <div class="line"></div>
-        <section>
-            <ul id="container__article-menu" class="list__unstyled article__top-menu">
-                <li class="container__article-menu__padding" href="#gunkan">
-                    <a href="#gunkan" class="article__menu-text__padding">Гункан <i class="fas fa-fish pl-5"></i></a>
-                </li>
-                <li class="container__article-menu__padding" href="#appetizers">
-                    <a href="#appetizers" class="article__menu-text__padding">Закуски <i
-                            class="fas fa-french-fries pl-5"></i></a>
-                </li>
-                <li class="container__article-menu__padding" href="#pizza">
-                    <a href="#pizza" class="article__menu-text__padding">Пицца <i
-                            class="fas fa-pizza-slice pl-5"></i></a>
-                </li>
-                <li class="container__article-menu__padding" href="#sushi">
-                    <a href="#sushi" class="article__menu-text__padding">Роллы <i class="fas fa-fish pl-5"></i></a>
-                </li>
-                <li class="container__article-menu__padding" href="#fried">
-                    <a href="#fried-rolls" class="article__menu-text__padding">Роллы жаренные <i
-                            class="fas fa-fish-cooked pl-5"></i></a>
-                </li>
-                <li class="container__article-menu__padding" href="#baked">
-                    <a href="#baked-rolls" class="article__menu-text__padding">Роллы запеченные <i
-                            class="fas fa-fish-cooked pl-5"></i></a>
-                </li>
-                <li class="container__article-menu__padding" href="#sets">
-                    <a href="#sets" class="article__menu-text__padding">Сеты <i class="fas fa-apple-crate pl-5"></i></a>
-                </li>
-                <li class="container__article-menu__padding" href="#drinks">
-                    <a href="#drinks" class="article__menu-text__padding">Напитки <i
-                            class="fas fa-burger-soda pl-5"></i></a>
-                </li>
-                <div class="search">
-                    <form role="search">
-                        <div class="search__container">
-                            <input type="text" class="search__menu">
-                            <a href="" class="search__button"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></a>
-                        </div>
-                    </form>
-                </div>
-            </ul>
-            <br>
-            <br>
-            <br>
-            <br>
-            <section id="departments">
-                <article class="department" id="gunkan">
-                    <h2 class="department-text">Гункан</h2>
-                    <div class="menu-cards">
-                        <div class="menu-card" id="menu">
-                            <img class="menu-image__settings" src="/images/top/no_img.jpg" alt="">
-                            <div class="menu-card__information">
-                                <div class="text-bold">
-                                    Гункан с Лососем
-                                </div>
-                                <div class="menu-card__information-price text-bold">
-                                    800 KZT
-                                </div>
-                                <div class="menu-card__information-ingredients">
-                                    Рис, лосось, нори
-                                </div>
-                            </div>
-                            <div class="menu-card__button">
-                                <a class="menu-card__button-card" href="#">
-                                    <span class="menu-card__white">
-                                        <i class="fa-sharp fa-solid fa-cart-shopping"></i>
-                                    </span>
-                                    <div class="menu-card__white text-bold">
-                                        Добавить к заказу
-                                    </div>
-                                </a>
-
-                                <a class="menu-card__button-like" href="#">
-                                    <span class="menu-card__white">
-                                        <i class="fa-sharp fa-solid fa-heart icon__settings"></i>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="menu-card">
-                            <img class="menu-image__settings" src="/images/top/no_img.jpg" alt="">
-                            <div class="menu-card__information">
-                                <div class="text-bold">
-                                    Гункан с Угрем
-                                </div>
-                                <div class="menu-card__information-price text-bold">
-                                    800 KZT
-                                </div>
-                                <div class="menu-card__information-ingredients">
-                                    Рис, угорь, нори, унаги соус
-                                </div>
-                            </div>
-                            <div class="menu-card__button">
-                                <a class="menu-card__button-card" href="#">
-                                    <span class="menu-card__white">
-                                        <i class="fa-sharp fa-solid fa-cart-shopping"></i>
-                                    </span>
-                                    <div class="menu-card__white text-bold">
-                                        Добавить к заказу
-                                    </div>
-                                </a>
-
-                                <a class="menu-card__button-like" href="#">
-                                    <span class="menu-card__white">
-                                        <i class="fa-sharp fa-solid fa-heart icon__settings"></i>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="menu-card">
-                            <img class="menu-image__settings" src="/images/top/no_img.jpg" alt="">
-                            <div class="menu-card__information">
-                                <div class="text-bold">
-                                    Гункан Креветка
-                                </div>
-                                <div class="menu-card__information-price text-bold">
-                                    800 KZT
-                                </div>
-                                <div class="menu-card__information-ingredients">
-                                    Рис, креветка, нори
-                                </div>
-                            </div>
-                            <div class="menu-card__button">
-                                <a class="menu-card__button-card" href="#">
-                                    <span class="menu-card__white">
-                                        <i class="fa-sharp fa-solid fa-cart-shopping"></i>
-                                    </span>
-                                    <div class="menu-card__white text-bold">
-                                        Добавить к заказу
-                                    </div>
-                                </a>
-
-                                <a class="menu-card__button-like" href="#">
-                                    <span class="menu-card__white">
-                                        <i class="fa-sharp fa-solid fa-heart icon__settings"></i>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="menu-card">
-                            <img class="menu-image__settings" src="/images/top/no_img.jpg" alt="">
-                            <div class="menu-card__information">
-                                <div class="text-bold">
-                                    Гункан Снежный краб
-                                </div>
-                                <div class="menu-card__information-price text-bold">
-                                    800 KZT
-                                </div>
-                                <div class="menu-card__information-ingredients">
-                                    Рис, краб-крем, нори
-                                </div>
-                            </div>
-                            <div class="menu-card__button">
-                                <a class="menu-card__button-card" href="#">
-                                    <span class="menu-card__white">
-                                        <i class="fa-sharp fa-solid fa-cart-shopping"></i>
-                                    </span>
-                                    <div class="menu-card__white text-bold">
-                                        Добавить к заказу
-                                    </div>
-                                </a>
-
-                                <a class="menu-card__button-like" href="#">
-                                    <span class="menu-card__white">
-                                        <i class="fa-sharp fa-solid fa-heart icon__settings"></i>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="department" id="appetizers">
-                    <h2 class="department-text">Закуски</h2>
-                    <div class="menu-cards">
-                        <div class="menu-card">Карточка 1</div>
-                    </div>
-                </article>
-
-                <article class="department" id="pizza">
-                    <h2 class="department-text">Пицца</h2>
-                    <div class="menu-cards">
-                        <div class="menu-card">Карточка 1</div>
-                        <div class="menu-card">Карточка 2</div>
-                        <div class="menu-card">Карточка 3</div>
-                        <div class="menu-card">Карточка 4</div>
-                        <div class="menu-card">Карточка 5</div>
-                    </div>
-                </article>
-
-                <article class="department" id="sushi">
-                    <h2 class="department-text">Роллы</h2>
-                    <div class="menu-cards">
-                        <div class="menu-card">Карточка 1</div>
-                        <div class="menu-card">Карточка 2</div>
-                        <div class="menu-card">Карточка 3</div>
-                        <div class="menu-card">Карточка 4</div>
-                        <div class="menu-card">Карточка 5</div>
-                        <div class="menu-card">Карточка 6</div>
-                        <div class="menu-card">Карточка 7</div>
-                        <div class="menu-card">Карточка 8</div>
-                        <div class="menu-card">Карточка 9</div>
-                    </div>
-                </article>
-
-                <article class="department" id="fried">
-                    <h2 class="department-text">Роллы жаренные</h2>
-                    <div class="menu-cards">
-                        <div class="menu-card">Карточка 1</div>
-                        <div class="menu-card">Карточка 2</div>
-                        <div class="menu-card">Карточка 3</div>
-                        <div class="menu-card">Карточка 4</div>
-
-                    </div>
-                </article>
-
-                <article class="department" id="baked">
-                    <h2 class="department-text">Роллы запеченные</h2>
-                    <div class="menu-cards">
-                        <div class="menu-card">Карточка 1</div>
-                        <div class="menu-card">Карточка 2</div>
-                        <div class="menu-card">Карточка 3</div>
-                        <div class="menu-card">Карточка 4</div>
-                        <div class="menu-card">Карточка 5</div>
-                    </div>
-                </article>
-
-                <article class="department" id="sets">
-                    <h2 class="department-text">Сеты</h2>
-                    <div class="menu-cards">
-                        <div class="menu-card">Карточка 1</div>
-                        <div class="menu-card">Карточка 2</div>
-                        <div class="menu-card">Карточка 3</div>
-                        <div class="menu-card">Карточка 4</div>
-                    </div>
-                </article>
-
-                <article class="department" id="drinks">
-                    <h2 class="department-text">Напитки</h2>
-                    <div class="menu-cards">
-                        <div class="menu-card">Карточка 1</div>
-                        <div class="menu-card">Карточка 2</div>
-                        <div class="menu-card">Карточка 3</div>
-                        <div class="menu-card">Карточка 4</div>
-                        <div class="menu-card">Карточка 5</div>
-                    </div>
-                </article>
-            </section>
-
-            <aside id="cart">
-                <h2>Корзина</h2>
-                <!-- Здесь будет содержимое корзины -->
-            </aside>
-    </article>
-
-    <footer class="footer">
-        <div class="footer__container">
-            <div class="row">
-                <div class="footer-col">
-                    <ul>
-                        <h4>Zenza</h4>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <ul>
-                        <h4>компания</h4>
-                        <li><a href="#">о нас</a></li>
-                        <li><a href="#">наши услуги</a></li>
-                        <li><a href="#">политика конфиденциальности</a></li>
-                        <li><a href="#">партнерская программа</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <ul>
-                        <h4>помощь</h4>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">доставка</a></li>
-                        <li><a href="#">возвраты</a></li>
-                        <li><a href="#">статус заказа</a></li>
-                        <li><a href="#">варианты оплаты</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <ul>
-                        <h4>онлайн магазин</h4>
-                        <li><a href="#">часы</a></li>
-                        <li><a href="#">сумки</a></li>
-                        <li><a href="#">обувь</a></li>
-                        <li><a href="#">платья</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <ul>
-                        <h4>онлайн магазин</h4>
-                        <li><a href="#">часы</a></li>
-                        <li><a href="#">сумки</a></li>
-                        <li><a href="#">обувь</a></li>
-                        <li><a href="#">платья</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="line-menu"></div>
-            <div class="justify--start">
-                <ul>
-                    <li>
-                        ©2024 Zenza. All Rights Reserved(Test). Designed By <i class="fa fa-heart" aria-hidden="true"
-                            style="color: #F07272;"></i> <span class="highlighted-text">Alisher and Ernur
-                            SE-2215</span>
-                    </li>
-                </ul>
-                <div class="justify--end">
-                    <ul>
-                        <li>
-                            <a class="" href="">
-                                <i class="fa-brands fa-square-whatsapp fa-3x"></i>
-                            </a>
-                            <a class="" href="">
-                                <i class="fa-brands fa-square-facebook fa-3x"></i>
-                            </a>
-                            <a class="" href="">
-                                <i class="fa-brands fa-square-instagram fa-3x"></i>
-                            </a>
+        <article>
+            <%- include('./partials/article__panel.ejs') %>
+                <section>
+                    <ul id="container__article-menu" class="list__unstyled article__top-menu">
+                        <li class="container__article-menu__padding" href="#gunkan">
+                            <a href="#gunkan" class="article__menu-text__padding">Гункан <i
+                                    class="fas fa-fish pl-5"></i></a>
                         </li>
+                        <li class="container__article-menu__padding" href="#appetizers">
+                            <a href="#appetizers" class="article__menu-text__padding">Закуски <i
+                                    class="fas fa-french-fries pl-5"></i></a>
+                        </li>
+                        <li class="container__article-menu__padding" href="#pizza">
+                            <a href="#pizza" class="article__menu-text__padding">Пицца <i
+                                    class="fas fa-pizza-slice pl-5"></i></a>
+                        </li>
+                        <li class="container__article-menu__padding" href="#sushi">
+                            <a href="#sushi" class="article__menu-text__padding">Роллы <i
+                                    class="fas fa-fish pl-5"></i></a>
+                        </li>
+                        <li class="container__article-menu__padding" href="#fried">
+                            <a href="#fried-rolls" class="article__menu-text__padding">Роллы жаренные <i
+                                    class="fas fa-fish-cooked pl-5"></i></a>
+                        </li>
+                        <li class="container__article-menu__padding" href="#baked">
+                            <a href="#baked-rolls" class="article__menu-text__padding">Роллы запеченные <i
+                                    class="fas fa-fish-cooked pl-5"></i></a>
+                        </li>
+                        <li class="container__article-menu__padding" href="#sets">
+                            <a href="#sets" class="article__menu-text__padding">Сеты <i
+                                    class="fas fa-apple-crate pl-5"></i></a>
+                        </li>
+                        <li class="container__article-menu__padding" href="#drinks">
+                            <a href="#drinks" class="article__menu-text__padding">Напитки <i
+                                    class="fas fa-burger-soda pl-5"></i></a>
+                        </li>
+                        <div class="search">
+                            <form role="search">
+                                <div class="search__container">
+                                    <input type="text" id="searchInput" class="search__menu">
+                                    <button type="button" class="search__button" onclick="searchMenu()"><i
+                                            class="fa-sharp fa-solid fa-magnifying-glass"
+                                            style="color: black;"></i></button>
+                                </div>
+                            </form>
+                        </div>
                     </ul>
-                </div>
-            </div>
+                </section>
+                <br>
+                <br>
+                <br>
+                <br>
+                <aside id="cart" class="menu__cart">
+                    <h2>Корзина</h2>
+                </aside>
+                <% function displayNoItemsMessage() { %>
+                    <div>
+                        <h2 style="color: #969697;">Пока тут ничего нет...</h2>
+                    </div>
+                    <% } %>
+
+                        <% function generateDepartment(departmentId, departmentName) { %>
+                            <article class="department" id="<%= departmentId %>">
+                                <h2 class="department-text">
+                                    <%= departmentName %>
+                                </h2>
+                                <div class="menu-cards">
+                                    <% if (menu.length> 0) { %>
+                                        <% menu.forEach(({ _id, title, ingredients, price, image, menu__id })=> { %>
+                                            <% if (menu__id===departmentId) { %>
+                                                <a class="menu-card cancelToSelect">
+                                                    <div class="menu-card__information">
+                                                        <div class="text-bold">
+                                                            <h2 class="menu-card__information-title">
+                                                                <%= title %>
+                                                            </h2>
+                                                            <p class="menu-card__information-ingredients">
+                                                                <%= ingredients %>
+                                                            </p>
+                                                        </div>
+                                                        <div class="menu-card__information-price text-bold">
+                                                            <span>
+                                                                <%= price %> KZT
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <img class="menu-image__settings cancelToSelect" src="<%= image %>"
+                                                        alt="<%= title %>">
+                                                    <div class="menu-card__add cancelToSelect">
+                                                        <i class="minus fa-solid fa-minus fa-lg minus-icon"
+                                                            style="display: none;"></i>
+                                                        <div class="counter" style="display: none;">
+                                                            <span class="count">0</span>
+                                                        </div>
+                                                        <i class="plus fa-solid fa-plus fa-lg plus-icon"></i>
+                                                    </div>
+                                                </a>
+                                                <% } %>
+                                                    <% }); %>
+                                                        <% } else { %>
+                                                            <%= displayNoItemsMessage() %>
+                                                                <% } %>
+                                </div>
+
+                            </article>
+                            <% } %>
+
+                                <section id="departments">
+                                    <% generateDepartment("gunkan", "Гункан" ) %>
+                                        <% generateDepartment("appetizers", "Закуски" ) %>
+                                            <% generateDepartment("pizza", "Пицца" ) %>
+                                                <% generateDepartment("sushi", "Роллы" ) %>
+                                                    <% generateDepartment("fried", "Роллы жаренные" ) %>
+                                                        <% generateDepartment("baked", "Роллы запеченные" ) %>
+                                                            <% generateDepartment("sets", "Сеты" ) %>
+                                                                <% generateDepartment("drinks", "Напитки" ) %>
+                                </section>
+        </article>
+        <div id="modal-background"></div>
+        <div class="individual-menu-card">
+            <div id="individual-menu-content"></div>
         </div>
-    </footer>
+        <%- include('./partials/footer.ejs') %>
 
 
-    <!-- load -->
+            <!-- load -->
 
-    <div id="loading-wrapper" class="loading-wrapper"></div>
-    <script>
-        $(window).on("load", function () {
-            setTimeout(function () {
-                $(".loading-wrapper").fadeOut("slow");
-            }, 1200)
-        });
-    </script>
+            <!-- <div id="loading-wrapper" class="loading-wrapper"></div>
+            <script>
+                $(window).on("load", function () {
+                    setTimeout(function () {
+                        $(".loading-wrapper").fadeOut("slow");
+                    }, 1200)
+                });
+            </script> -->
 
-    <!-- scripts -->
+            <!-- scripts -->
 
-    <script src="/styles/navbar/navbar.js"></script>
-    <script src="/styles/font-awesome/all.js"></script>
-    <script src="/styles/article/search.js"></script>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const menuIcons = document.querySelectorAll(".menu-card__add");
+
+                    menuIcons.forEach(function (icon) {
+                        const plusIcon = icon.querySelector(".plus-icon");
+                        const minusIcon = icon.querySelector(".minus-icon");
+                        const counter = icon.querySelector(".counter");
+                        const countElement = counter.querySelector(".count");
+
+                        plusIcon.addEventListener("click", function () {
+                            let count = parseInt(countElement.textContent);
+                            count++;
+                            countElement.textContent = count;
+                            counter.style.display = "inline-block";
+                            minusIcon.style.display = "";
+                        });
+
+                        minusIcon.addEventListener("click", function () {
+                            let count = parseInt(countElement.textContent);
+                            if (count > 0) {
+                                count--;
+                                countElement.textContent = count;
+                            }
+                            if (count === 0) {
+                                counter.style.display = "none";
+                                plusIcon.style.display = "";
+                                minusIcon.style.display = "none";
+                            }
+                        });
+
+                        plusIcon.addEventListener("mouseenter", function () {
+                            plusIcon.style.cursor = "pointer";
+                        });
+
+                        plusIcon.addEventListener("mouseleave", function () {
+                            plusIcon.style.cursor = "default";
+                        });
+
+                        plusIcon.addEventListener("mousedown", function () {
+                            plusIcon.style.transform = "scale(0.9)";
+                        });
+
+                        plusIcon.addEventListener("mouseup", function () {
+                            plusIcon.style.transform = "scale(1)";
+                        });
+
+                        minusIcon.addEventListener("mouseenter", function () {
+                            minusIcon.style.cursor = "pointer";
+                        });
+
+                        minusIcon.addEventListener("mouseleave", function () {
+                            minusIcon.style.cursor = "default";
+                        });
+
+                        minusIcon.addEventListener("mousedown", function () {
+                            minusIcon.style.transform = "scale(0.9)";
+                        });
+
+                        minusIcon.addEventListener("mouseup", function () {
+                            minusIcon.style.transform = "scale(1)";
+                        });
+                    });
+                });
+
+            </script>
+
+            <script src="/styles/navbar/navbar.js"></script>
+            <script src="/styles/font-awesome/all.js"></script>
+            <script src="/styles/article/search.js"></script>
+            <script src="/styles/article/each_menu.js"></script>
 
 </body>
 

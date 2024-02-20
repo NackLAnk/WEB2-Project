@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- links -->
+
+    <link rel="stylesheet" href="/styles/style.css">
+
+    <!-- scripts -->
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://kit.fontawesome.com/c85c87a3ad.js" crossorigin="anonymous"></script>
+    <title>Pizza Delivery</title>
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+        <%- include('./partials/article__panel.ejs') %>
+            <form class="menu--form" id="menu-form" method="post" action="/add-menu" enctype="multipart/form-data">
+                <div class="menu--form__1">
+                    <label>
+                        <input type="text" name="title" placeholder="menu title">
+                    </label>
+                    <label>
+                        <select id="menu__id" name="menu__id">
+                            <option value="gunkan">Гункан</option>
+                            <option value="appetizers">Закуски</option>
+                            <option value="pizza">Пицца</option>
+                            <option value="sushi">Роллы</option>
+                            <option value="fried">Роллы жаренные</option>
+                            <option value="baked">Роллы запеченные</option>
+                            <option value="sets">Сеты</option>
+                            <option value="drinks">Напитки</option>
+                        </select>
+                    </label>
+                    <div class="menu--form__2">
+                        <label>
+                            <input type="text" name="ingredients" placeholder="menu ingredients">
+                        </label>
+                        <div class="menu--form__3">
+                            <label>
+                                <input type="text" name="price" placeholder="menu price">
+                            </label>
+                        </div>
+                    </div>
+                    <label>
+                        <input type="file" name="image">
+                    </label>
+                    <input type="submit" value="Submit">
+                    <div id="error-message" style="color: red;"></div>
+                </div>
+            </form>
+
+            <script>
+                document.getElementById('menu-form').addEventListener('submit', function (event) {
+                    event.preventDefault(); // Предотвращаем стандартное поведение отправки формы
+
+                    var formData = new FormData(this);
+
+                    // Отправляем AJAX запрос на сервер
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/add-menu', true);
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            // При успешном выполнении запроса перенаправляем на /home
+                            window.location.href = '/home';
+                        } else {
+                            // Если произошла ошибка, выводим сообщение об ошибке
+                            var errorMessage = JSON.parse(xhr.responseText).errors[0].msg;
+                            document.getElementById('error-message').innerText = errorMessage;
+                        }
+                    };
+                    xhr.send(formData);
+                });
+
+            </script>
+</body>
+
+</html>

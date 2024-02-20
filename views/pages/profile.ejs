@@ -20,27 +20,51 @@
 
 <body>
     <header>
-        <div id="navbar-bg" class="profile__container">
-            <ul id="navbar" class="navbar">
-                <div class="navbar__brand">
-                    <div>
-                        <a href="#">
-                            <img src="/images/logo/logo-pizza__delivery.png" width="50px" height="50px" alt="">
-                        </a>
-                    </div>
+        <div class="profile__container">
+            <ul class="navbar">
+                <a href="/home" class="navbar__brand">
                     <div>
                         <div class="navbar__brand__title text-bold">
                             <span id="navbar-logo-text">
-                                СУШИ & ПИЦЦА ZENZA
+                                ZENZA
                             </span>
                         </div>
                     </div>
-                </div>
+                </a>
             </ul>
-            <div class="navbar__account">
-                <span id="navbar-profile">
-                    <%= userName %>
-                        <%= userLastName %>
+            <div class="navbar__profile">
+                <img class="navbar__user--icon" src="<%= user.avatar || '/images/userIcon.png' %>" alt="">
+                <span>
+                    <% if (user.first_name && user.last_name) { %>
+
+                        <div class="sec-center cancelToSelect">
+                            <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
+                            <label class="for-dropdown" for="dropdown">
+                                <%= user.first_name[0].toUpperCase() + user.last_name[0].toUpperCase() %> <i
+                                        class="fas fa-chevron-down uil" style="padding-left: 8px;"></i>
+                            </label>
+                            <div class="section-dropdown">
+                                <a class="dropdown--profile" href="/profile">
+                                    <img class="dropdown--profile__image"
+                                        src="<%= user.avatar || '/images/userIcon.png' %>" alt="user">
+                                    <div class="dropdown--profile__information">
+                                        <div class="dropdown--profile__title">
+                                            Профиль
+                                        </div>
+                                        <div class="dropdown--profile__username">
+                                            <%= user.first_name%>
+                                                <%= user.last_name%>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </a>
+                                <a class="dropdown--section" href="/blog">Блог</a>
+                                <a class="dropdown--section" href="#">Поддержка</a>
+                                <div class="line-dropdown"></div>
+                                <a class="dropdown--section" href="/logout">Выйти</a>
+                            </div>
+                        </div>
+                        <% } %>
                 </span>
             </div>
         </div>
@@ -48,13 +72,127 @@
 
     <article class="profile__container--content">
         <section class="profile--top">
-            <h1 class="text__46--profile">Profile</h1>
+            <h1 class="text__46--profile">Профиль</h1>
         </section>
-    </article>
 
-    <br>
-    <a href="/logout">Logout</a>
-    <a href="home">return</a>
+        <section class="profile--settings">
+            <div class="settings">
+                <img class="profile__image" src="<%= user.avatar || '/images/userIcon.png' %>" alt="user">
+                <div class="profile__information">
+                    <div class="profile__name">
+                        <span class="name">
+                            Имя
+                        </span>
+                        <input class="profile__username" type="text" name="first_name" id="first-name-input"
+                            value="<%= user.first_name %>">
+                    </div>
+                    <div class="profile__last-name">
+                        <span class="last-name">
+                            Фамилия
+                        </span>
+                        <input class="profile__username" type="text" name="last_name" id="last-name-input"
+                            value="<%= user.last_name %>">
+                    </div>
+                    <div class="profile__email">
+                        <span class="email">
+                            Почта
+                        </span>
+                        <div>
+                            <%= user.email%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile__change--button">
+                <label for="file-upload" class="custom-file-upload">Выбeрите файл</label>
+                <input id="file-upload" name="avatar" type="file" accept="image/*">
+                <input type="hidden" name="email" id="author-field" value="<%= user.email %>">
+            </div>
+
+            <section class="profile--orderHistory">
+                <h1 class="text__46--order">История заказов</h1>
+                <div>
+                    <div class="profile__empty--orders">
+                        У вас ещё нет заказов...
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+    </article>
+    <%- include('./partials/footer.ejs') %>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Получаем ссылку на элементы input для выбора файла и email
+            var fileInput = document.getElementById('file-upload');
+            var emailInput = document.getElementById('author-field');
+            var firstNameInput = document.getElementById('first-name-input');
+            var lastNameInput = document.getElementById('last-name-input');
+            var timeout = null;
+
+            // Функция для отправки данных на сервер
+            function sendData() {
+                var formData = new FormData();
+                formData.append('first_name', firstNameInput.value);
+                formData.append('last_name', lastNameInput.value);
+                formData.append('email', emailInput.value);
+
+                fetch('/change-user-info', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Ошибка:', error);
+                    });
+            }
+
+            // Функция для сброса таймера и отправки данных
+            function resetTimer() {
+                clearTimeout(timeout);
+                timeout = setTimeout(sendData, 5000); // Отправляем данные через 5 секунд после последнего ввода
+            }
+
+            // Слушаем событие изменения имени
+            firstNameInput.addEventListener('input', function () {
+                resetTimer();
+            });
+
+            // Слушаем событие изменения фамилии
+            lastNameInput.addEventListener('input', function () {
+                resetTimer();
+            });
+
+            // Слушаем событие изменения файла
+            fileInput.addEventListener('change', function () {
+                // Проверяем, выбран ли файл
+                if (fileInput.files && fileInput.files[0]) {
+                    var formData = new FormData();
+                    formData.append('avatar', fileInput.files[0]);
+                    formData.append('email', emailInput.value);
+
+                    fetch('/change-user-info', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            location.reload();
+                        })
+                        .catch(error => {
+                            console.error('Ошибка:', error);
+                        });
+                }
+            });
+        });
+
+    </script>
+    
 </body>
 
 </html>

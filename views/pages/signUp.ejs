@@ -41,16 +41,13 @@
                         <div id="password-error" style="color: red;"></div>
                         <i class='bx bx-hide eye-icon'></i>
                     </div>
-                    <div class="form-link">
-                        <a href="#" class="forgot-pass">Forgot password?</a>
-                    </div>
                     <div id="error-message" style="color: red;"></div>
                     <div class="field button-field">
                         <input type="submit" value="Submit Form" />
                     </div>
                 </form>
                 <div class="form-link">
-                    <span>Already have an account? <a href="/login" class="link login-link">Login</a></span>
+                    <span>Already have an account? <a href="/login">Login</a></span>
                 </div>
             </div>
             <div class="line"></div>
@@ -62,13 +59,13 @@
         </div>
     </section>
 
-    <div id="loading-wrapper" class="loading-wrapper"></div>
+    <!-- <div id="loading-wrapper" class="loading-wrapper"></div> -->
     <script>
-        $(window).on("load", function () {
-            setTimeout(function () {
-                $(".loading-wrapper").fadeOut("slow");
-            }, 1200)
-        });
+        // $(window).on("load", function () {
+        //     setTimeout(function () {
+        //         $(".loading-wrapper").fadeOut("slow");
+        //     }, 1200)
+        // });
 
         const form = document.getElementById('reg-form')
         const fNameErrorElement = document.getElementById('error-first-name');

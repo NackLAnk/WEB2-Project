@@ -19,7 +19,7 @@
     padding: 0 0 0 12px;
     list-style: none;
 
-    font-size: 18px;
+    font-size: 32px;
 }
 
 .navbar__brand__subtitle {
@@ -84,8 +84,11 @@
 .image {
     position: relative;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 320px;
+    background-image: url("/images/top/top-image.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .image-text {
@@ -102,4 +105,24 @@
 
 .image-text__size-under {
     font-size: 18px;
+}
+
+/* user Icon */
+
+.navbar__profile {
+    display: flex;
+    align-items: center;
+    justify-items: stretch;
+    background-color: rgba(0, 157, 224, 0.2);
+    border: 2px solid #009DE0;
+    border-radius: 22px;
+    padding-right: 8px;
+}
+
+.navbar__user--icon {
+    background-color: #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
 }
