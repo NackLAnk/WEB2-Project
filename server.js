@@ -41,8 +41,8 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const envData = fs.readFileSync('.env', 'utf8');
 // const lines = envData.split('\n');
-// const JWT_SECRET = crypto.randomBytes(64).toString('hex');
-const JWT_SECRET =  'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk';
+const JWT_SECRET = crypto.randomBytes(64).toString('hex');
+// const JWT_SECRET =  'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk';
 
 // let updatedEnvData = lines
 //   .map(line => {
