@@ -24,6 +24,7 @@ const multer = require('multer');
 
 // mongoose
 const mongoose = require('mongoose');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 // hash variables
 const crypto = require('crypto');
@@ -68,6 +69,16 @@ mongoose.connect('mongodb+srv://nacklank:Gasek123@atlascluster.8lfm3uv.mongodb.n
   console.error('MongoDB connection error:', error);
 });
 
+const store = new MongoDBStore({
+  uri: 'mongodb+srv://nacklank:Gasek123@atlascluster.8lfm3uv.mongodb.net/dbweb?retryWrites=true&w=majority',
+  collection: 'sessions'
+});
+
+store.on('error', function(error) {
+  console.log(error);
+});
+
+
 // app variable
 const app = express();
 const port = 3000;
@@ -86,12 +97,7 @@ app.use(session({
   secret: sessionSecret,
   resave: false,
   saveUninitialized: false,
-  // cookie: {
-  //   secure: false,
-  //   httpOnly: true,
-  //   maxAge: 7200000,
-  //   sameSite: 'strict'
-  // }
+  store: store
 }));
 
 
