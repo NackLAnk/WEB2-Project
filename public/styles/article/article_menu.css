@@ -352,6 +352,13 @@
     border-radius: 12px 0 0 12px;
 }
 
+.drawer__container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: calc(100% - 82px);
+}
+
 #closeDrawer {
     display: flex;
     justify-content: end;
@@ -376,24 +383,59 @@
     margin-top: 40px;
 }
 
-.drawer__button {
-    position: absolute;
-    bottom: 3em;
-    width: calc(100% - 56px);
-    margin: 8px;
-    padding: 0;
-    background-color: #009DE0;
-    color: #fff !important;
-    border-radius: 8px;
+.drawer__before--container {
+    position: relative;
+    margin-top: auto;    
 }
 
+.drawer__button {
+    background-color: #009DE0;
+    border-radius: 8px;
+}
 
 .drawer__button--buy {
     font-family: 'Valio Omnes Semibold';
     cursor: pointer;
     display: flex;
     justify-content: space-around;
-    padding: 18px;
+    padding: 18px 0px;
     color: #fff !important;
-    margin: 0 -48px;
+}
+
+/* order */
+
+.order__container {
+    margin-top: 10px;
+    border-radius: 8px;
+    display: flex;
+    height: 65px;
+    background-color: #E8F4F7;
+}
+
+.order__container img {
+    width: 115px;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.order__information {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.order--count {
+    padding: 7px 10px;
+
+    background-color: #009DE0;
+    color: #fff;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
 }

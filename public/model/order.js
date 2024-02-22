@@ -17,16 +17,15 @@ const ordersSchema = new Schema({
         type: String,
     },
     orderDetails: [{
-        orderId: {
-            type: Schema.Types.ObjectId,
-            ref: 'menu',
-            required: true,
-        },
         orderName: {
             type: String,
             required: true,
         },
     }],
+    order_price: {
+        type: String,
+        required: true,
+    }
 }, { timestamps: true });
 
 

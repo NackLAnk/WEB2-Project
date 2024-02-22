@@ -77,7 +77,7 @@
                     <div class="menu__cart--child">
                         <h2>Корзина</h2>
                         <div class="pl-5">
-                            <span>0</span> <span>KZT</span>
+                            <span class="total__price">0</span> <span>KZT</span>
                         </div>
                     </div>
                 </a>
@@ -85,11 +85,16 @@
                 </div>
                 <div id="drawer" class="drawer">
                     <a id="closeDrawer"><i class="fa-solid fa-xmark fa-2x"></i></a>
-                    <div class="drawer__orders">
-                        <h2 class="text-bold">Ваш Заказ</h2>
-                    </div>
-                    <div class="drawer__button">
-                        <a class="drawer__button--buy">Перейти к Оплате <span><span>0</span> <span>KZT</span></span></a>
+                    <div class="drawer__container">
+                        <div class="drawer__orders">
+                            <h2 class="text-bold">Ваш Заказ</h2>
+                        </div>
+                        <div class="drawer__before--container">
+                            <div class="drawer__button">
+
+                                <a class="drawer__button--buy">Перейти к Оплате <span><span class="total__price2">0</span> <span>KZT</span></span></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -118,6 +123,7 @@
                                                                 <%= ingredients %>
                                                             </p>
                                                         </div>
+                                                        <div class="menu_id" style="display: none;" hidden><%= _id %></div>
                                                         <div class="menu-card__information-price text-bold">
                                                             <span>
                                                                 <%= price %> KZT
@@ -176,78 +182,12 @@
 
             <!-- scripts -->
 
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    const menuIcons = document.querySelectorAll(".menu-card__add");
-
-                    menuIcons.forEach(function (icon) {
-                        const plusIcon = icon.querySelector(".plus-icon");
-                        const minusIcon = icon.querySelector(".minus-icon");
-                        const counter = icon.querySelector(".counter");
-                        const countElement = counter.querySelector(".count");
-
-                        plusIcon.addEventListener("click", function () {
-                            let count = parseInt(countElement.textContent);
-                            count++;
-                            countElement.textContent = count;
-                            counter.style.display = "inline-block";
-                            minusIcon.style.display = "";
-                        });
-
-                        minusIcon.addEventListener("click", function () {
-                            let count = parseInt(countElement.textContent);
-                            if (count > 0) {
-                                count--;
-                                countElement.textContent = count;
-                            }
-                            if (count === 0) {
-                                counter.style.display = "none";
-                                plusIcon.style.display = "";
-                                minusIcon.style.display = "none";
-                            }
-                        });
-
-                        plusIcon.addEventListener("mouseenter", function () {
-                            plusIcon.style.cursor = "pointer";
-                        });
-
-                        plusIcon.addEventListener("mouseleave", function () {
-                            plusIcon.style.cursor = "default";
-                        });
-
-                        plusIcon.addEventListener("mousedown", function () {
-                            plusIcon.style.transform = "scale(0.9)";
-                        });
-
-                        plusIcon.addEventListener("mouseup", function () {
-                            plusIcon.style.transform = "scale(1)";
-                        });
-
-                        minusIcon.addEventListener("mouseenter", function () {
-                            minusIcon.style.cursor = "pointer";
-                        });
-
-                        minusIcon.addEventListener("mouseleave", function () {
-                            minusIcon.style.cursor = "default";
-                        });
-
-                        minusIcon.addEventListener("mousedown", function () {
-                            minusIcon.style.transform = "scale(0.9)";
-                        });
-
-                        minusIcon.addEventListener("mouseup", function () {
-                            minusIcon.style.transform = "scale(1)";
-                        });
-                    });
-                });
-
-            </script>
-
             <script src="/styles/navbar/navbar.js"></script>
             <script src="/styles/font-awesome/all.js"></script>
             <script src="/styles/article/search.js"></script>
             <script src="/styles/article/each_menu.js"></script>
             <script src="/styles/article/drawer.js"></script>
+            <script src="/styles/article/counter.js"></script>
 
 </body>
 
