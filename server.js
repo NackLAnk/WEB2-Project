@@ -4,14 +4,13 @@ const express = require("express");
 const cookieParser = require('cookie-parser');
 
 // express-session
-const session = require('express-session');
 const { check, validationResult } = require('express-validator');
 
 // path
 const path = require('path');
 
 // fs
-const fs = require('fs');
+const fs = require("fs");
 
 // favicon
 const favicon = require('serve-favicon');
@@ -24,7 +23,11 @@ const multer = require('multer');
 
 // mongoose
 const mongoose = require('mongoose');
-const MongoDBStore = require('connect-mongodb-session')(session);
+
+// Redis
+const session = require('express-session');
+const redis = require('redis');
+const RedisStore = require("connect-redis").default;
 
 // hash variables
 const crypto = require('crypto');
@@ -40,25 +43,11 @@ const Order = require('./public/model/order');
 // jwt secret
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const envData = fs.readFileSync('.env', 'utf8');
-// const lines = envData.split('\n');
 const JWT_SECRET = crypto.randomBytes(64).toString('hex');
-// const JWT_SECRET =  'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk';
-
-// let updatedEnvData = lines
-//   .map(line => {
-//     if (line.startsWith('JWT_SECRET=')) {
-//       return `JWT_SECRET=${JWT_SECRET}`;
-//     }
-//     return line;
-//   })
-//   .join('\n');
 
 // session secret
 
 const sessionSecret = crypto.randomBytes(64).toString('hex');
-
-// fs.writeFileSync('.env', updatedEnvData);
 
 // mongoose connect
 mongoose.connect('mongodb+srv://nacklank:Gasek123@atlascluster.8lfm3uv.mongodb.net/dbweb?retryWrites=true&w=majority', {
@@ -70,15 +59,15 @@ mongoose.connect('mongodb+srv://nacklank:Gasek123@atlascluster.8lfm3uv.mongodb.n
   console.error('MongoDB connection error:', error);
 });
 
-const store = new MongoDBStore({
-  uri: 'mongodb+srv://nacklank:Gasek123@atlascluster.8lfm3uv.mongodb.net/dbweb?retryWrites=true&w=majority',
-  collection: 'sessions'
+const  redisClient = redis.createClient({
+  url: 'redis://default:Hd7hJbmhnR7irbABwoggjY0qZvb6BOrE@redis-19401.c299.asia-northeast1-1.gce.cloud.redislabs.com:19401'
 });
 
-store.on('error', function(error) {
-  console.log(error);
+let redisStore = new RedisStore({
+  client: redisClient,
 });
 
+redisClient.connect().catch(console.error);
 
 // app variable
 const app = express();
@@ -98,8 +87,9 @@ app.use(session({
   secret: sessionSecret,
   resave: false,
   saveUninitialized: false,
-  store: store,
+  store: redisStore,
   cookie: {
+    secure: false,
     maxAge: 3600000
   }
 }));
