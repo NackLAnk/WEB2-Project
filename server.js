@@ -35,6 +35,7 @@ const User = require('./public/model/user');
 const Post = require('./public/model/post');
 const Menu = require('./public/model/menu');
 const Rating = require('./public/model/rating');
+const Order = require('./public/model/order');
 
 // jwt secret
 require('dotenv').config();

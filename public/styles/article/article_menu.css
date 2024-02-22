@@ -6,6 +6,8 @@
 .article__top-information {
     display: flex;
     align-items: center;
+    white-space: nowrap;
+    flex-wrap: wrap;
     padding: 0 0 0 0;
 }
 
@@ -114,8 +116,9 @@
 }
 
 .menu-image__settings {
-    width: auto;
-    height: auto;
+    width: 230px;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: cover;
     border-radius: 8px;
 }
@@ -156,10 +159,23 @@
 /* cart */
 
 .menu__cart {
-    position: absolute;
-    z-index: 10000;
-    bottom: 0;
-    right: 0;
+    position: fixed;
+    z-index: 9999;
+    bottom: 0px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.menu__cart--child {
+    font-family: 'Valio Omnes Semibold';
+    padding: 12px;
+    width: 280px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #009DE0;
+    color: #fff;
+    border-radius: 12px 12px 0 0;
 }
 
 /* menu media */
@@ -238,6 +254,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
     display: none;
+    transition: all 0.3 ease-in-out;
 }
 
 .individual-menu-card {
@@ -318,4 +335,65 @@
 .individual-price {
     color: #009DE0;
     font-weight: 600;
+}
+
+/* drawer */
+
+.drawer {
+    width: 420px;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    right: -800px;
+    height: 100%;
+    padding: 20px;
+    transition: right 0.4s ease-in-out;
+    z-index: 10000;
+    border-radius: 12px 0 0 12px;
+}
+
+#closeDrawer {
+    display: flex;
+    justify-content: end;
+}
+
+#closeDrawer i {
+    width: 46px;
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    background-color: #EDEEEE;
+    border-radius: 50%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.drawer.open {
+    right: 0;
+}
+
+.drawer__orders {
+    margin-top: 40px;
+}
+
+.drawer__button {
+    position: absolute;
+    bottom: 3em;
+    width: calc(100% - 56px);
+    margin: 8px;
+    padding: 0;
+    background-color: #009DE0;
+    color: #fff !important;
+    border-radius: 8px;
+}
+
+
+.drawer__button--buy {
+    font-family: 'Valio Omnes Semibold';
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+    padding: 18px;
+    color: #fff !important;
+    margin: 0 -48px;
 }

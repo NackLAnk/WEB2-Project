@@ -125,6 +125,7 @@ a {
     width: calc(100% - 80px);
     max-width: auto;
     background-color: white;
+    overflow-x: auto;
 }
 
 .container__article-menu__padding {
@@ -250,4 +251,14 @@ a {
     border-radius: 8px;
     padding: 4px;
     background-color: #fff;
+}
+
+/* Медиа-запрос для планшетов и устройств с разрешением до 768px */
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 12px; /* Возвращаем базовый размер шрифта для планшетов */
+    }
+    .menu-image__settings {
+        width: 180px;
+    }
 }

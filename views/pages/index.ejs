@@ -30,7 +30,7 @@
                         </li>
                         <li class="container__article-menu__padding" href="#appetizers">
                             <a href="#appetizers" class="article__menu-text__padding">Закуски <i
-                                    class="fas fa-french-fries pl-5"></i></a>
+                                    class="fas fa-solid fa-french-fries pl-5"></i></a>
                         </li>
                         <li class="container__article-menu__padding" href="#pizza">
                             <a href="#pizza" class="article__menu-text__padding">Пицца <i
@@ -72,9 +72,27 @@
                 <br>
                 <br>
                 <br>
-                <aside id="cart" class="menu__cart">
-                    <h2>Корзина</h2>
-                </aside>
+
+                <a id="cart" class="menu__cart">
+                    <div class="menu__cart--child">
+                        <h2>Корзина</h2>
+                        <div class="pl-5">
+                            <span>0</span> <span>KZT</span>
+                        </div>
+                    </div>
+                </a>
+
+                </div>
+                <div id="drawer" class="drawer">
+                    <a id="closeDrawer"><i class="fa-solid fa-xmark fa-2x"></i></a>
+                    <div class="drawer__orders">
+                        <h2 class="text-bold">Ваш Заказ</h2>
+                    </div>
+                    <div class="drawer__button">
+                        <a class="drawer__button--buy">Перейти к Оплате <span><span>0</span> <span>KZT</span></span></a>
+                    </div>
+                </div>
+
                 <% function displayNoItemsMessage() { %>
                     <div>
                         <h2 style="color: #969697;">Пока тут ничего нет...</h2>
@@ -229,6 +247,7 @@
             <script src="/styles/font-awesome/all.js"></script>
             <script src="/styles/article/search.js"></script>
             <script src="/styles/article/each_menu.js"></script>
+            <script src="/styles/article/drawer.js"></script>
 
 </body>
 

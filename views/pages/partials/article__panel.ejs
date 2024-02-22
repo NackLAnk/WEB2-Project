@@ -21,8 +21,8 @@
             </li>
             <li style="margin-left: auto; padding-right: 10px;">
                 <% if (userLoggedIn) { %>
-                    <% if (currentUrl==='/home' && user.role === "admin") { %>
-                        <a href="home/add-menu" class="navbar__account-sign-up" style=" width: 150px;">
+                    <% if (currentUrl==='/' && user.role === "admin") { %>
+                        <a href="/add-menu" class="navbar__account-sign-up" style=" width: 150px;">
                             <span class="text-color__white" style="text-align: center; padding-left: 10px; display: flex; align-items: center;">
                                 добавить меню <i class="fa-sharp fa-solid fa-plus" style="padding-left: 5px;"></i>
                             </span>
