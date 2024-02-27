@@ -523,7 +523,7 @@ app.post("/change-user-info", upload.single('avatar'), (req, res) => {
 });
 
 app.post('/payment-section', async (req, res) => {
-  const { customerName, orderDetails, orderPrice } = req.body;
+  const { customerName, customerComment, orderDetails, orderPrice } = req.body;
   const customerEmail = req.session.email;
 
   try {
@@ -555,7 +555,7 @@ app.post('/payment-section', async (req, res) => {
       }
     }
 
-    const newOrder = new Order({ orderId: newOrderID, customerEmail, customerName, orderDetails, orderPrice });
+    const newOrder = new Order({ orderId: newOrderID, customerComment, customerEmail, customerName, orderDetails, orderPrice });
 
     // Сохранение заказа и обработка результата
     const savedOrder = await newOrder.save();

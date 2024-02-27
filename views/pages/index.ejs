@@ -27,6 +27,14 @@
 
             var customerId = document.querySelector('.customer-id').textContent.trim();
             var customerName = document.querySelector('.customer-name').textContent.trim();
+            var userCommentElement = document.getElementById('user_comment');
+            var customerComment = userCommentElement.value.trim();
+
+            // Проверяем, является ли комментарий пустым
+            if (customerComment === '') {
+                customerComment = null;
+            }
+
             var totalPrice = document.querySelector('.total__price').textContent;
 
             // Удаляем пробелы из имени клиента
@@ -46,6 +54,7 @@
             var orderData = {
                 customerId: customerId,
                 customerName: customerName,
+                customerComment: customerComment,
                 orderDetails: orderDetails,
                 orderPrice: totalPrice
             };
@@ -164,6 +173,37 @@
                                     </a>
                                     <% } %>
 
+                                        <div id="myModal" class="modal">
+                                            <div class="modal-content">
+                                                <span class="close">&times;</span>
+                                                <div class="payment-form">
+                                                    <h2>Информация об оплате</h2>
+                                                    <form id="paymentForm">
+                                                        <div class="form-group">
+                                                            <label for="cardNumber">Номер карты</label>
+                                                            <input type="text" id="cardNumber"
+                                                                placeholder="1234 5678 9012 3456" inputmode="numeric"
+                                                                style="background-color: #fff; color: black !important;">
+                                                        </div>
+                                                        <div style="display: flex; justify-content: space-between;">
+                                                            <div class="form-group">
+                                                                <label for="cardExpiry">Срок действия</label>
+                                                                <input type="text" id="cardExpiry" placeholder="MM/YY"
+                                                                    inputmode="numeric"
+                                                                    style="background-color: #fff; color: black !important;">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="cardCVC">CVC</label>
+                                                                <input type="text" id="cardCVC" placeholder="CVC"
+                                                                    inputmode="numeric"
+                                                                    style="background-color: #fff; color: black !important;">
+                                                            </div>
+                                                        </div>
+                                                        <button id="payment-button" onclick="sendDataToServer()"  class="button--buy" style="border-radius: 8px;" disabled>Оплатить</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+
 
                                         </div>
                                         <div id="drawer" class="drawer">
@@ -174,12 +214,13 @@
                                                 </div>
                                                 <div class="drawer__before--container">
                                                     <div class="drawer__comments">
-                                                        Комментарий
+                                                        <textarea id="user_comment" rows="4" cols="50"
+                                                            maxlength="500"></textarea>
                                                     </div>
+
                                                     <% if (userLoggedIn) { %>
                                                         <div class="drawer__button">
-                                                            <a id="payment-button" onclick="sendDataToServer()"
-                                                                class="drawer__button--buy">Перейти к Оплате
+                                                            <a id="myBtn" class="drawer__button--buy">Перейти к Оплате
                                                                 <span><span class="total__price2">0</span>
                                                                     <span>KZT</span></span>
                                                             </a>
@@ -476,6 +517,7 @@
             <script src="/styles/article/each_menu.js"></script>
             <script src="/styles/article/drawer.js"></script>
             <script src="/styles/article/counter.js"></script>
+            <script src="/styles/article/card.js"></script>
 
 </body>
 
