@@ -26,6 +26,9 @@ const UserSchema = new mongoose.Schema({
     },
     avatar: {
         type: String,
+    },
+    orderedCount: {
+        type: Number,
     }
 }, { collection: 'users' });
 

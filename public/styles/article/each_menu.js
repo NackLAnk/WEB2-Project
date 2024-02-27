@@ -1,4 +1,4 @@
-const menuCards = document.querySelectorAll('.menu-card');
+const menuCards = document.querySelectorAll('.menu-card1');
 const individualMenuCard = document.querySelector('.individual-menu-card');
 const individualMenuContent = document.getElementById('individual-menu-content');
 const modalBackground = document.getElementById('modal-background');

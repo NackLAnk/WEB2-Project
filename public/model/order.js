@@ -1,33 +1,31 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ordersSchema = new Schema({
-    customer: [{
-        customer_Id: {
-            type: Schema.Types.ObjectId,
-            ref: 'user',
-            required: true,
-        },
-        customer_Name: {
-            type: String,
-            required: true,
-        },
-    }],
-    customer_comment: {
+const orderSchema = new Schema({
+    orderId: {
+        type: Number,
+        unique: true,
+    },
+    customerEmail: {
+        type: String,
+        required: true,
+    },
+    customerName: {
+        type: String,
+        required: true,
+    },
+    customerComment: {
         type: String,
     },
-    orderDetails: [{
-        orderName: {
-            type: String,
-            required: true,
-        },
-    }],
-    order_price: {
+    orderDetails: {
+        type: [Schema.Types.Mixed],
+        required: true,
+    },
+    orderPrice: {
         type: String,
         required: true,
     }
-}, { timestamps: true });
+});
 
-
-const Order = mongoose.model('Order', ordersSchema);
-module.exports = Order
+const Order = mongoose.model('Order', orderSchema);
+module.exports = Order;

@@ -23,6 +23,7 @@ const multer = require('multer');
 
 // mongoose
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 // Redis
 const session = require('express-session');
@@ -59,7 +60,7 @@ mongoose.connect('mongodb+srv://nacklank:Gasek123@atlascluster.8lfm3uv.mongodb.n
   console.error('MongoDB connection error:', error);
 });
 
-const  redisClient = redis.createClient({
+const redisClient = redis.createClient({
   url: 'redis://default:Hd7hJbmhnR7irbABwoggjY0qZvb6BOrE@redis-19401.c299.asia-northeast1-1.gce.cloud.redislabs.com:19401'
 });
 
@@ -93,12 +94,6 @@ app.use(session({
     maxAge: 3600000
   }
 }));
-
-
-// redirect to --> /home
-// app.get("/", (req, res) => {
-//   res.redirect("/home");
-// });
 
 // функций, проверка, время, проверки на авторизацию и т.д.
 
@@ -195,7 +190,6 @@ app.get("/signUp", checkAuth, (req, res) => {
   res.render(createPath('signUp'), {});
 });
 
-// профиль пользователей
 app.get('/profile', requireAuth, (req, res) => {
   const { email, userLoggedIn } = req.session;
 
@@ -205,12 +199,22 @@ app.get('/profile', requireAuth, (req, res) => {
         // Если пользователь не найден, отправьте статус 404 "Not Found"
         return res.status(404).send('User Not Found');
       }
-      // Отрендерить шаблон с данными пользователя
-      res.render(createPath('profile'), {
-        user,
-        userLoggedIn,
-        currentUrl: req.url
-      });
+      
+      // Найти все заказы пользователя
+      Order.find()
+        .then((orders) => {
+          // Отрендерить шаблон с данными пользователя и его заказами
+          res.render(createPath('profile'), {
+            user,
+            userLoggedIn,
+            orders,
+            currentUrl: req.url
+          });
+        })
+        .catch((err) => {
+          console.error('Error finding orders:', err);
+          res.status(500).send('Internal Server Error');
+        });
     })
     .catch((err) => {
       // Обработка ошибок запроса к базе данных
@@ -218,6 +222,7 @@ app.get('/profile', requireAuth, (req, res) => {
       res.status(500).send('Internal Server Error');
     });
 });
+
 
 
 // getter блога и его потомки
@@ -516,6 +521,54 @@ app.post("/change-user-info", upload.single('avatar'), (req, res) => {
       });
   }
 });
+
+app.post('/payment-section', async (req, res) => {
+  const { customerName, orderDetails, orderPrice } = req.body;
+  const customerEmail = req.session.email;
+
+  try {
+    // Проверяем, есть ли пользователь с указанным email
+    const existingUser = await User.findOne({ email: customerEmail }).exec();
+    let OrderID = 1;
+
+    if (existingUser) {
+      // Если пользователь существует, увеличиваем orderedCount на 1
+      OrderID = existingUser.orderedCount ? existingUser.orderedCount + 1 : 1;
+      existingUser.orderedCount = OrderID;
+      await existingUser.save();
+    } else {
+      // Если пользователя не существует, устанавливаем orderedCount в 1
+      const newUser = new User({ email: customerEmail, orderedCount: 1 });
+      await newUser.save();
+    }
+
+    const orders = await Order.find({}, { orderId: 1 }).sort({ orderId: 1 }).exec();
+    let newOrderID = 1;
+
+    if (orders.length > 0) {
+      for (const order of orders) {
+        if (order.orderId === newOrderID) {
+          newOrderID++; // Если orderId уже используется, переходим к следующему
+        } else {
+          break; // Как только найдем неиспользованный orderId, выходим из цикла
+        }
+      }
+    }
+
+    const newOrder = new Order({ orderId: newOrderID, customerEmail, customerName, orderDetails, orderPrice });
+
+    // Сохранение заказа и обработка результата
+    const savedOrder = await newOrder.save();
+    console.log('Заказ успешно сохранен:', savedOrder);
+    res.status(200).send('Данные успешно получены и обработаны');
+  } catch (error) {
+    console.error('Ошибка при сохранении заказа:', error);
+    res.status(500).send('Произошла ошибка при обработке данных');
+  }
+});
+
+
+
 
 // Errors
 

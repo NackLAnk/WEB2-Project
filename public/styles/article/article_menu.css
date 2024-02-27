@@ -25,6 +25,12 @@
     border-bottom: 1px solid #DDDDDD;
 }
 
+.article__menu {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+}
+
 .menu-active {
     background-color: #E8F4F8;
     border-radius: 8px;
@@ -54,6 +60,19 @@
 }
 
 .menu-card {
+    position: relative;
+    padding: 12px;
+
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 8.75rem;
+    border-radius: 8px;
+    box-shadow: -1px 1px #DFDFDF;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-card1 {
     position: relative;
     padding: 12px;
 
@@ -345,7 +364,7 @@
     position: fixed;
     top: 0;
     right: -800px;
-    height: 100%;
+    height: 95.5%;
     padding: 20px;
     transition: right 0.4s ease-in-out;
     z-index: 10000;
@@ -355,8 +374,7 @@
 .drawer__container {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    height: calc(100% - 82px);
+    height: calc(100% - 40px);
 }
 
 #closeDrawer {
@@ -381,6 +399,9 @@
 
 .drawer__orders {
     margin-top: 40px;
+    width: auto;
+    max-width: 100%;
+    overflow-y: auto;
 }
 
 .drawer__before--container {
@@ -389,8 +410,7 @@
 }
 
 .drawer__button {
-    background-color: #009DE0;
-    border-radius: 8px;
+    
 }
 
 .drawer__button--buy {
@@ -400,6 +420,18 @@
     justify-content: space-around;
     padding: 18px 0px;
     color: #fff !important;
+    margin: 12px;
+    background-color: #009DE0;
+    border-radius: 8px;
+}
+
+.drawer__comments {
+    font-family: 'Valio Omnes Semibold';
+    margin: 12px;
+    padding: 28px 0px;
+    background-color: #d8ecf1;
+    border-radius: 8px;
+    display: flex;
 }
 
 /* order */
@@ -438,4 +470,41 @@
     justify-content: center;
     align-items: center;
     border-radius: 8px;
+}
+
+.order__empty {
+    display: block;
+    padding: 24px;
+    background-color: #d8ecf1;
+    border-radius: 8px;
+    display: flex;
+    justify-self: center;
+    text-align: center;
+}
+
+/* notification */
+
+.notification-area {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100000;
+}
+
+.notification {
+    font-family: 'Valio Omnes Semibold';
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeEffect 5s ease forwards;
+}
+
+@keyframes fadeEffect {
+    0% { opacity: 0; transform: translateY(-20px); }
+    50% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-20px); }
 }

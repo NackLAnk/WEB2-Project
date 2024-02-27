@@ -36,12 +36,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 minusIcon.style.display = "none";
             }
         });
-
     });
 
     function getProductData(icon) {
         const menuCard = icon.closest('.menu-card');
-        const menuId = icon.parentNode.querySelector('.menu_id').innerText;
+        const menuId = icon.parentNode.querySelector('.menu_id').innerText.trim();
         const title = menuCard.querySelector('.menu-card__information-title').innerText;
         const ingredients = menuCard.querySelector('.menu-card__information-ingredients').innerText;
         const price = menuCard.querySelector('.menu-card__information-price span').innerText.replace(/\s/g, '');
@@ -59,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
         orderItems.forEach(item => {
             const titleElement = item.querySelector('p:first-child');
             if (titleElement.innerText === productData.title) {
-                const countElement = item.querySelector('span:nth-child(2) span');
+                const countElement = item.querySelector('a:nth-child(2)');
                 let count = parseInt(countElement.textContent);
                 count++;
                 countElement.textContent = count; // Обновляем содержимое счетчика
@@ -77,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <img src="${productData.image}">
                     <div class="order__information">
                         <p class="text-bold">${productData.title}</p>
-                        <span class="order--count"><span>1</span></span>
+                        <a class="order--count cancelToSelect" style="cursor: pointer;">1</a>
                     </div>
                 </div>
             `;
@@ -96,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (orderItemToRemove) {
             // Удаляем элемент из DOM
-            const countElement = orderItemToRemove.querySelector('span:nth-child(2) span');
+            const countElement = orderItemToRemove.querySelector('a:nth-child(2)');
             let count = parseInt(countElement.textContent);
             count--;
 
@@ -132,3 +131,45 @@ document.addEventListener("DOMContentLoaded", function () {
         totalPriceSpan2.textContent = totalOrderPrice;
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const drawerOrders = document.querySelector('.drawer__orders');
+
+    // Функция для проверки пустоты корзины
+    const checkCartEmpty = function () {
+        const orderItems = drawerOrders.querySelectorAll('.order-item');
+        const orderItemCount = orderItems.length;
+        const noOrdersText = document.querySelector('.order__empty');
+
+        if (orderItemCount < 1) {
+            if (!noOrdersText) {
+                const noOrdersText = document.createElement('span');
+                noOrdersText.textContent = 'Нет активных заказов.';
+                noOrdersText.classList.add('order__empty');
+                drawerOrders.appendChild(noOrdersText);
+            }
+        } else {
+            if (noOrdersText) {
+                noOrdersText.remove();
+            }
+        }
+    };
+
+    // Проверяем пустоту корзины при загрузке страницы
+    checkCartEmpty();
+
+    // Создаем экземпляр MutationObserver
+    const observer = new MutationObserver(function (mutationsList, observer) {
+        for (const mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                // Проверяем пустоту корзины при изменениях внутри drawerOrders
+                checkCartEmpty();
+                break;
+            }
+        }
+    });
+
+    // Начинаем отслеживание изменений внутри drawerOrders
+    observer.observe(drawerOrders, { childList: true, subtree: true });
+});
+

@@ -14,6 +14,71 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://kit.fontawesome.com/c85c87a3ad.js" crossorigin="anonymous"></script>
     <title>Pizza Delivery</title>
+
+    <script>
+        function sendDataToServer() {
+            var orderItems = document.querySelectorAll('.order-item');
+
+            // Проверяем, есть ли элементы .order-item на странице
+            if (orderItems.length === 0) {
+                console.log('Нет заказов для отправки на сервер');
+                return; // Не отправляем пустой заказ на сервер
+            }
+
+            var customerId = document.querySelector('.customer-id').textContent.trim();
+            var customerName = document.querySelector('.customer-name').textContent.trim();
+            var totalPrice = document.querySelector('.total__price').textContent;
+
+            // Удаляем пробелы из имени клиента
+            customerName = customerName.replace(/\s+/g, '');
+
+            // Создаем массив с информацией о каждом элементе .order-item
+            var orderDetails = Array.from(orderItems).map(item => {
+                var orderName = item.querySelector('.order__information p').textContent.trim();
+                var orderCount = item.querySelector('.order--count').textContent.trim();
+                return {
+                    orderName: orderName,
+                    orderCount: parseInt(orderCount) // Преобразуем количество в число
+                };
+            });
+
+            // Формируем объект данных о заказе
+            var orderData = {
+                customerId: customerId,
+                customerName: customerName,
+                orderDetails: orderDetails,
+                orderPrice: totalPrice
+            };
+
+            // Отправляем данные на сервер
+            $.ajax({
+                type: 'POST',
+                url: '/payment-section',
+                contentType: 'application/json',
+                data: JSON.stringify(orderData),
+                success: function (response) {
+                    var successNotification = document.createElement('div');
+                    successNotification.textContent = 'Оплата прошла успешно. Спасибо за покупку!';
+                    successNotification.classList.add('notification');
+
+                    var notificationArea = document.querySelector('.notification-area');
+
+                    notificationArea.appendChild(successNotification);
+
+                    setTimeout(function () {
+                        successNotification.remove();
+
+                        setTimeout(function () {
+                            location.reload();
+                        }, 10);
+                    }, 5000);
+                },
+
+
+            });
+        }
+
+    </script>
 </head>
 
 <body>
@@ -73,94 +138,317 @@
                 <br>
                 <br>
 
-                <a id="cart" class="menu__cart">
-                    <div class="menu__cart--child">
-                        <h2>Корзина</h2>
-                        <div class="pl-5">
-                            <span class="total__price">0</span> <span>KZT</span>
-                        </div>
-                    </div>
-                </a>
+                <div class="notification-area"></div>
 
-                </div>
-                <div id="drawer" class="drawer">
-                    <a id="closeDrawer"><i class="fa-solid fa-xmark fa-2x"></i></a>
-                    <div class="drawer__container">
-                        <div class="drawer__orders">
-                            <h2 class="text-bold">Ваш Заказ</h2>
-                        </div>
-                        <div class="drawer__before--container">
-                            <div class="drawer__button">
-
-                                <a class="drawer__button--buy">Перейти к Оплате <span><span class="total__price2">0</span> <span>KZT</span></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <% function displayNoItemsMessage() { %>
-                    <div>
-                        <h2 style="color: #969697;">Пока тут ничего нет...</h2>
-                    </div>
-                    <% } %>
-
-                        <% function generateDepartment(departmentId, departmentName) { %>
-                            <article class="department" id="<%= departmentId %>">
-                                <h2 class="department-text">
-                                    <%= departmentName %>
-                                </h2>
-                                <div class="menu-cards">
-                                    <% if (menu.length> 0) { %>
-                                        <% menu.forEach(({ _id, title, ingredients, price, image, menu__id })=> { %>
-                                            <% if (menu__id===departmentId) { %>
-                                                <a class="menu-card cancelToSelect">
-                                                    <div class="menu-card__information">
-                                                        <div class="text-bold">
-                                                            <h2 class="menu-card__information-title">
-                                                                <%= title %>
-                                                            </h2>
-                                                            <p class="menu-card__information-ingredients">
-                                                                <%= ingredients %>
-                                                            </p>
-                                                        </div>
-                                                        <div class="menu_id" style="display: none;" hidden><%= _id %></div>
-                                                        <div class="menu-card__information-price text-bold">
-                                                            <span>
-                                                                <%= price %> KZT
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <img class="menu-image__settings cancelToSelect" src="<%= image %>"
-                                                        alt="<%= title %>">
-                                                    <div class="menu-card__add cancelToSelect">
-                                                        <i class="minus fa-solid fa-minus fa-lg minus-icon"
-                                                            style="display: none;"></i>
-                                                        <div class="counter" style="display: none;">
-                                                            <span class="count">0</span>
-                                                        </div>
-                                                        <i class="plus fa-solid fa-plus fa-lg plus-icon"></i>
-                                                    </div>
-                                                </a>
-                                                <% } %>
-                                                    <% }); %>
-                                                        <% } else { %>
-                                                            <%= displayNoItemsMessage() %>
-                                                                <% } %>
+                <% if (userLoggedIn) { %>
+                    <% if (user.role==="admin" ) { %>
+                        <!-- Код для администратора -->
+                        <% } else { %>
+                            <a id="cart" class="menu__cart">
+                                <div class="menu__cart--child">
+                                    <h2>Корзина</h2>
+                                    <div class="pl-5">
+                                        <span class="total__price">0</span> <span>KZT</span>
+                                    </div>
                                 </div>
-
-                            </article>
+                            </a>
                             <% } %>
+                                <% } else { %>
+                                    <a id="cart" class="menu__cart">
+                                        <div class="menu__cart--child">
+                                            <h2>Корзина</h2>
+                                            <div class="pl-5">
+                                                <span class="total__price">0</span> <span>KZT</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <% } %>
 
-                                <section id="departments">
-                                    <% generateDepartment("gunkan", "Гункан" ) %>
-                                        <% generateDepartment("appetizers", "Закуски" ) %>
-                                            <% generateDepartment("pizza", "Пицца" ) %>
-                                                <% generateDepartment("sushi", "Роллы" ) %>
-                                                    <% generateDepartment("fried", "Роллы жаренные" ) %>
-                                                        <% generateDepartment("baked", "Роллы запеченные" ) %>
-                                                            <% generateDepartment("sets", "Сеты" ) %>
-                                                                <% generateDepartment("drinks", "Напитки" ) %>
-                                </section>
+
+                                        </div>
+                                        <div id="drawer" class="drawer">
+                                            <a id="closeDrawer"><i class="fa-solid fa-xmark fa-2x"></i></a>
+                                            <div class="drawer__container">
+                                                <div class="drawer__orders">
+                                                    <h2 class="text-bold">Ваш Заказ</h2>
+                                                </div>
+                                                <div class="drawer__before--container">
+                                                    <div class="drawer__comments">
+                                                        Комментарий
+                                                    </div>
+                                                    <% if (userLoggedIn) { %>
+                                                        <div class="drawer__button">
+                                                            <a id="payment-button" onclick="sendDataToServer()"
+                                                                class="drawer__button--buy">Перейти к Оплате
+                                                                <span><span class="total__price2">0</span>
+                                                                    <span>KZT</span></span>
+                                                            </a>
+                                                        </div>
+                                                        <% } else { %>
+                                                            <div class="drawer__button">
+                                                                <a href="login" class="drawer__button--buy"> Вы не
+                                                                    зарегистрированы, нажмите чтобы Войти<i
+                                                                        class="fa-solid fa-arrow-right"></i>
+                                                                </a>
+                                                            </div>
+                                                            <% } %>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <% function displayNoItemsMessage() { %>
+                                            <div>
+                                                <h2 style="color: #969697;">Пока тут ничего нет...</h2>
+                                            </div>
+                                            <% } %>
+
+                                                <% function generateDepartment(departmentId, departmentName) { %>
+                                                    <article class="department" id="<%= departmentId %>">
+                                                        <h2 class="department-text">
+                                                            <%= departmentName %>
+                                                        </h2>
+                                                        <div class="menu-cards">
+                                                            <% if (menu.length> 0) { %>
+                                                                <% menu.forEach(({ _id, title, ingredients, price,
+                                                                    image, menu__id })=> { %>
+                                                                    <% if (menu__id===departmentId) { %>
+                                                                        <% if (userLoggedIn) { %>
+                                                                            <% if (user.role==="admin" ) { %>
+                                                                                <a class="menu-card1 cancelToSelect">
+                                                                                    <div class="menu-card__information">
+                                                                                        <div class="text-bold">
+                                                                                            <h2
+                                                                                                class="menu-card__information-title">
+                                                                                                <%= title %>
+                                                                                            </h2>
+                                                                                            <p
+                                                                                                class="menu-card__information-ingredients">
+                                                                                                <%= ingredients %>
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="menu_id"
+                                                                                            style="display: none;"
+                                                                                            hidden>
+                                                                                            <%= _id %>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="menu-card__information-price text-bold">
+                                                                                            <span>
+                                                                                                <%= price %> KZT
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <% if (userLoggedIn) { %>
+                                                                                        <% if (user.role==="admin" ) {
+                                                                                            %>
+                                                                                            <img class="menu-image__settings cancelToSelect"
+                                                                                                src="<%= image %>"
+                                                                                                alt="<%= title %>">
+                                                                                            <% } else { %>
+                                                                                                <img class="menu-image__settings cancelToSelect"
+                                                                                                    src="<%= image %>"
+                                                                                                    alt="<%= title %>">
+                                                                                                <div
+                                                                                                    class="menu-card__add cancelToSelect">
+                                                                                                    <i class="minus fa-solid fa-minus fa-lg minus-icon"
+                                                                                                        style="display: none;"></i>
+                                                                                                    <div class="counter"
+                                                                                                        style="display: none;">
+                                                                                                        <span
+                                                                                                            class="count">0</span>
+                                                                                                    </div>
+                                                                                                    <i
+                                                                                                        class="plus fa-solid fa-plus fa-lg plus-icon"></i>
+                                                                                                </div>
+                                                                                                <% } %>
+                                                                                                    <% } else { %>
+                                                                                                        <img class="menu-image__settings cancelToSelect"
+                                                                                                            src="<%= image %>"
+                                                                                                            alt="<%= title %>">
+                                                                                                        <div
+                                                                                                            class="menu-card__add cancelToSelect">
+                                                                                                            <i class="minus fa-solid fa-minus fa-lg minus-icon"
+                                                                                                                style="display: none;"></i>
+                                                                                                            <div class="counter"
+                                                                                                                style="display: none;">
+                                                                                                                <span
+                                                                                                                    class="count">0</span>
+                                                                                                            </div>
+                                                                                                            <i
+                                                                                                                class="plus fa-solid fa-plus fa-lg plus-icon"></i>
+                                                                                                        </div>
+                                                                                                        <% } %>
+                                                                                </a>
+                                                                                <% } else { %>
+                                                                                    <div
+                                                                                        class="menu-card cancelToSelect">
+                                                                                        <div
+                                                                                            class="menu-card__information">
+                                                                                            <div class="text-bold">
+                                                                                                <h2
+                                                                                                    class="menu-card__information-title">
+                                                                                                    <%= title %>
+                                                                                                </h2>
+                                                                                                <p
+                                                                                                    class="menu-card__information-ingredients">
+                                                                                                    <%= ingredients %>
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div class="menu_id"
+                                                                                                style="display: none;"
+                                                                                                hidden>
+                                                                                                <%= _id %>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="menu-card__information-price text-bold">
+                                                                                                <span>
+                                                                                                    <%= price %> KZT
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <% if (userLoggedIn) { %>
+                                                                                            <% if (user.role==="admin" )
+                                                                                                { %>
+                                                                                                <img class="menu-image__settings cancelToSelect"
+                                                                                                    src="<%= image %>"
+                                                                                                    alt="<%= title %>">
+                                                                                                <% } else { %>
+                                                                                                    <img class="menu-image__settings cancelToSelect"
+                                                                                                        src="<%= image %>"
+                                                                                                        alt="<%= title %>">
+                                                                                                    <div
+                                                                                                        class="menu-card__add cancelToSelect">
+                                                                                                        <i class="minus fa-solid fa-minus fa-lg minus-icon"
+                                                                                                            style="display: none;"></i>
+                                                                                                        <div class="counter"
+                                                                                                            style="display: none;">
+                                                                                                            <span
+                                                                                                                class="count">0</span>
+                                                                                                        </div>
+                                                                                                        <i
+                                                                                                            class="plus fa-solid fa-plus fa-lg plus-icon"></i>
+                                                                                                    </div>
+                                                                                                    <% } %>
+                                                                                                        <% } else { %>
+                                                                                                            <img class="menu-image__settings cancelToSelect"
+                                                                                                                src="<%= image %>"
+                                                                                                                alt="<%= title %>">
+                                                                                                            <div
+                                                                                                                class="menu-card__add cancelToSelect">
+                                                                                                                <i class="minus fa-solid fa-minus fa-lg minus-icon"
+                                                                                                                    style="display: none;"></i>
+                                                                                                                <div class="counter"
+                                                                                                                    style="display: none;">
+                                                                                                                    <span
+                                                                                                                        class="count">0</span>
+                                                                                                                </div>
+                                                                                                                <i
+                                                                                                                    class="plus fa-solid fa-plus fa-lg plus-icon"></i>
+                                                                                                            </div>
+                                                                                                            <% } %>
+                                                                                    </div>
+                                                                                    <% } %>
+                                                                                        <% } else { %>
+                                                                                            <div
+                                                                                                class="menu-card cancelToSelect">
+                                                                                                <div
+                                                                                                    class="menu-card__information">
+                                                                                                    <div
+                                                                                                        class="text-bold">
+                                                                                                        <h2
+                                                                                                            class="menu-card__information-title">
+                                                                                                            <%= title %>
+                                                                                                        </h2>
+                                                                                                        <p
+                                                                                                            class="menu-card__information-ingredients">
+                                                                                                            <%= ingredients
+                                                                                                                %>
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                    <div class="menu_id"
+                                                                                                        style="display: none;"
+                                                                                                        hidden>
+                                                                                                        <%= _id %>
+                                                                                                    </div>
+                                                                                                    <div
+                                                                                                        class="menu-card__information-price text-bold">
+                                                                                                        <span>
+                                                                                                            <%= price %>
+                                                                                                                KZT
+                                                                                                        </span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <% if (userLoggedIn) {
+                                                                                                    %>
+                                                                                                    <% if
+                                                                                                        (user.role==="admin"
+                                                                                                        ) { %>
+                                                                                                        <img class="menu-image__settings cancelToSelect"
+                                                                                                            src="<%= image %>"
+                                                                                                            alt="<%= title %>">
+                                                                                                        <% } else { %>
+                                                                                                            <img class="menu-image__settings cancelToSelect"
+                                                                                                                src="<%= image %>"
+                                                                                                                alt="<%= title %>">
+                                                                                                            <div
+                                                                                                                class="menu-card__add cancelToSelect">
+                                                                                                                <i class="minus fa-solid fa-minus fa-lg minus-icon"
+                                                                                                                    style="display: none;"></i>
+                                                                                                                <div class="counter"
+                                                                                                                    style="display: none;">
+                                                                                                                    <span
+                                                                                                                        class="count">0</span>
+                                                                                                                </div>
+                                                                                                                <i
+                                                                                                                    class="plus fa-solid fa-plus fa-lg plus-icon"></i>
+                                                                                                            </div>
+                                                                                                            <% } %>
+                                                                                                                <% } else
+                                                                                                                    { %>
+                                                                                                                    <img class="menu-image__settings cancelToSelect"
+                                                                                                                        src="<%= image %>"
+                                                                                                                        alt="<%= title %>">
+                                                                                                                    <div
+                                                                                                                        class="menu-card__add cancelToSelect">
+                                                                                                                        <i class="minus fa-solid fa-minus fa-lg minus-icon"
+                                                                                                                            style="display: none;"></i>
+                                                                                                                        <div class="counter"
+                                                                                                                            style="display: none;">
+                                                                                                                            <span
+                                                                                                                                class="count">0</span>
+                                                                                                                        </div>
+                                                                                                                        <i
+                                                                                                                            class="plus fa-solid fa-plus fa-lg plus-icon"></i>
+                                                                                                                    </div>
+                                                                                                                    <% }
+                                                                                                                        %>
+                                                                                            </div>
+                                                                                            <% } %>
+                                                                                                <% } %>
+                                                                                                    <% }); %>
+                                                                                                        <% } else { %>
+                                                                                                            <%= displayNoItemsMessage()
+                                                                                                                %>
+                                                                                                                <% } %>
+                                                        </div>
+
+                                                    </article>
+                                                    <% } %>
+
+                                                        <section id="departments">
+                                                            <% generateDepartment("gunkan", "Гункан" ) %>
+                                                                <% generateDepartment("appetizers", "Закуски" ) %>
+                                                                    <% generateDepartment("pizza", "Пицца" ) %>
+                                                                        <% generateDepartment("sushi", "Роллы" ) %>
+                                                                            <% generateDepartment("fried", "Роллы жаренные"
+                                                                                ) %>
+                                                                                <% generateDepartment("baked", "Роллы запеченные"
+                                                                                    ) %>
+                                                                                    <% generateDepartment("sets", "Сеты"
+                                                                                        ) %>
+                                                                                        <% generateDepartment("drinks", "Напитки"
+                                                                                            ) %>
+                                                        </section>
         </article>
         <div id="modal-background"></div>
         <div class="individual-menu-card">

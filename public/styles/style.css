@@ -125,7 +125,6 @@ a {
     width: calc(100% - 80px);
     max-width: auto;
     background-color: white;
-    overflow-x: auto;
 }
 
 .container__article-menu__padding {

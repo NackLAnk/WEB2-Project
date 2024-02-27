@@ -33,16 +33,6 @@
                         </div>
                     </span>
                 </div>
-                <!-- <a href="/login" class="navbar__account-login">
-                    <span id="navbar-login" class="text-color__white">
-                        Войти
-                    </span>
-                </a>
-                <a href="/signUp" class="navbar__account-sign-up">
-                    <span id="navbar-sign-in" class="text-color__white">
-                        Зарегистрироваться
-                    </span>
-                </a> -->
                 <% } else { %>
                     <div class="navbar__profile">
                         <img class="navbar__user--icon" src="<%= user.avatar || '/images/userIcon.png' %>" alt="">
@@ -64,8 +54,13 @@
                                                     Профиль
                                                 </div>
                                                 <div class="dropdown--profile__username">
-                                                    <%= user.first_name%>
+                                                    <span class="customer-name">
+                                                        <%= user.first_name%>
+                                                    </span>
                                                         <%= user.last_name%>
+                                                        <span class="customer-id" style="display: none;" hidden>
+                                                            <%= user._id %>
+                                                        </span>
                                                 </div>
                                             </div>
                                             <i class="fa-solid fa-chevron-right"></i>

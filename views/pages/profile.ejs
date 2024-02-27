@@ -109,19 +109,112 @@
                 <input type="hidden" name="email" id="author-field" value="<%= user.email %>">
             </div>
 
-            <section class="profile--orderHistory">
-                <h1 class="text__46--order">История заказов</h1>
-                <div>
-                    <div class="profile__empty--orders">
-                        У вас ещё нет заказов...
+            <% if ( user.role==="admin" ) { %>
+
+                <% } else { %>
+                    <div>
+                        <h1 class="text__46--order" style="margin-top: 30px;">Скидочные акций
+                        </h1>
+                        <div class="profile__discount">
+                            <% if (user.orderedCount < 5) { %>
+                                <div class="profile__discount-item">
+                                    <span style="display: flex; justify-content: center; font-size: x-large;">
+                                        скидка 5%
+                                    </span>
+                                    <div class="profile__discount-information">
+                                        Закажите 5 раз. Чтобы получить скидку
+                                    </div>
+                                </div>
+                                <% } else { %>
+                                    <div class="profile__discount-item active-discount">
+                                        скидка 5%
+                                    </div>
+                                    <% } %>
+
+                                        <% if (user.orderedCount < 15) { %>
+                                            <div class="profile__discount-item">
+                                                <span
+                                                    style="display: flex; justify-content: center; font-size: x-large;">
+                                                    скидка 10%
+                                                </span>
+                                                <div class="profile__discount-information">
+                                                    Закажите 15 раз. Чтобы получить скидку
+                                                </div>
+                                            </div>
+                                            <% } else { %>
+                                                <div class="profile__discount-item active-discount">
+                                                    скидка 10%
+                                                </div>
+                                                <% } %>
+
+                                                    <% if (user.orderedCount < 30) { %>
+                                                        <div class="profile__discount-item">
+                                                            <span
+                                                                style="display: flex; justify-content: center; font-size: x-large;">
+                                                                скидка 15%
+                                                            </span>
+                                                            <div class="profile__discount-information">
+                                                                Закажите 30 раз. Чтобы получить скидку
+                                                            </div>
+                                                        </div>
+                                                        <% } else { %>
+                                                            <div class="profile__discount-item active-discount">
+                                                                скидка 15%
+                                                            </div>
+                                                            <% } %>
+
+                        </div>
                     </div>
-                </div>
-            </section>
+                    <% } %>
+
+                        <% if ( user.role==="admin" ) { %>
+                            <section class="profile--orderHistory">
+                                <h1 class="text__46--order">Добро пожаловать, <%= user.first_name %>
+                                        <%= user.last_name %>
+                                </h1>
+                                <div>
+                                    Функционал для админ панеля...
+                                </div>
+                            </section>
+                            <% } else { %>
+                                <section class="profile--orderHistory">
+                                    <h1 class="text__46--order">История заказов</h1>
+                                    <div class="profile__order">
+                                        <div class="profile__order-container">
+                                            <% if (orders.length > 0) { %>
+                                                <% orders.forEach((order) => { %>
+                                                    <% if (order.customerEmail === user.email) { %>
+                                                        <div class="profile__order">
+                                                            <div class="profile__order-info">
+                                                                <p>Номер заказа: <%= order.orderId %></p>
+                                                                <p>На Имя: <%= order.customerName %></p>
+                                                                <p>Заказы:</p>
+                                                                <ul class="order__list" style="list-style: none;">
+                                                                    <% for (let i = 0; i < order.orderDetails.length; i++) { %>
+                                                                        <li>
+                                                                            <%= order.orderDetails[i].orderName %>: <%= order.orderDetails[i].orderCount %> шт.
+                                                                        </li>
+                                                                    <% } %>
+                                                                </ul>
+                                                                <p>Цена: <%= order.orderPrice %></p>
+                                                            </div>
+                                                        </div>
+                                                    <% } %>
+                                                <% }); %>
+                                            <% } else { %>
+                                                <div class="profile__empty--orders">
+                                                    У вас ещё нет заказов...
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </section>
+                                <% } %>
+
 
         </section>
 
     </article>
-    <%- include('./partials/footer.ejs') %>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -190,9 +283,9 @@
                 }
             });
         });
-
     </script>
-    
+
+
 </body>
 
 </html>

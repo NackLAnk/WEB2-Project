@@ -117,7 +117,7 @@ input[type="file"] {
 
 /* orders */
 
-.profile__empty--orders {   
+.profile__empty--orders {
     font-family: 'Valio Omnes Semibold';
 }
 
@@ -126,4 +126,72 @@ input[type="file"] {
     margin-top: 60px;
     margin-right: auto;
     margin-left: auto;
+}
+
+.profile__discount {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+    margin: 20px;
+}
+
+.profile__discount-item {
+    border: 2px solid #7D7D80;
+    border-radius: 12px;
+    height: 120px;
+    padding: 12px;
+    font-family: 'Valio Omnes Semibold';
+}
+
+.profile__discount-item:nth-child(1) {
+    border: 2px solid #7D7D80;
+    border-radius: 12px;
+    height: 120px;
+}
+
+/* Пример стиля для второго элемента */
+.profile__discount-item:nth-child(2) {
+    border: 2px solid #7D7D80;
+    border-radius: 12px;
+    height: 120px;
+}
+
+.profile__discount-item:nth-child(3) {
+    border: 2px solid #7D7D80;
+    border-radius: 12px;
+    height: 120px;
+}
+
+.profile__discount-information {
+    font-family: 'Valio Omnes Semibold';
+    font-size: 16px;
+    margin: 12px;
+}
+
+.active-discount {
+    border: 2px solid green !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+}
+
+.profile__order-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-right: 270px;
+
+}
+
+.order__list {
+    height: 50px;
+    overflow-y: auto;
+}
+
+.profile__order-info {
+    font-family: 'Valio Omnes Semibold';
+    border: 2px solid #dddddd;
+    border-radius: 12px;
+    padding: 12px;
 }
